@@ -1,14 +1,17 @@
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { useGetAllProductsQuery } from "../features/productsApi";
 import { addToCart } from "../features/cartSlice";
 
 const Home = () => {
   const { data, error, isLoading } = useGetAllProductsQuery();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
-  }
+    dispatch(addToCart(product));
+    history.push("/cart");
+  };
 
   return (
     <div className="home-container">
@@ -28,7 +31,9 @@ const Home = () => {
                   <span>{product.desc}</span>
                   <span className="price">{product.price}VND</span>
                 </div>
-                <button onClick={() => handleAddToCart(product)}>Add To Cart</button>
+                <button onClick={() => handleAddToCart(product)}>
+                  Add To Cart
+                </button>
               </div>
             ))}
           </div>
