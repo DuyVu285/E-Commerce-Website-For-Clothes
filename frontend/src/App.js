@@ -13,9 +13,10 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Switch>
-          <Route path="/cart" component={Cart} />
+          <Route path="/cart" exact component={Cart} />
           <Route path="/not-found" component={NotFound} />
-          <Route path="/" component={Home} />
+          <Route path="/" exact component={Home} />
+          <Redirect to="/not-found"/>
         </Switch>
       </BrowserRouter>
     </div>
