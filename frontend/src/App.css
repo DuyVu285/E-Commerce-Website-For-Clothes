@@ -291,3 +291,11 @@
   color: white;
   letter-spacing: 1.15px;
 }
+
+.continue-shopping, .start-shopping{
+  margin-top: 1rem;
+}
+
+.continue-shopping, .start-shopping a {
+  
+}

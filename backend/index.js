@@ -5,6 +5,8 @@ const products = require("./products")
 
 const app = express();
 
+// mysql
+
 app.use(express.json());
 app.use(cors());
 
