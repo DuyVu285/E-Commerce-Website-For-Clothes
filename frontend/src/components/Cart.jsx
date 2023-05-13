@@ -70,16 +70,16 @@ const Cart = () => {
             {cart.cartItems?.map((cartItems) => (
               <div className="cart-item" key={cartItems.id}>
                 <div className="cart-product">
-                  <img src={cartItems.image} alt={cartItems.name} />
+                  <img src={cartItems.Image} alt={cartItems.Name} />
                   <div>
-                    <h3>{cartItems.name}</h3>
-                    <p>{cartItems.desc}</p>
+                    <h3>{cartItems.Name}</h3>
+                    <p>{cartItems.Description}</p>
                     <button onClick={() => handleRemoveFromCart(cartItems)}>
                       Remove
                     </button>
                   </div>
                 </div>
-                <div className="cart-product-price">{cartItems.price}VND</div>
+                <div className="cart-product-price">{cartItems.Price}VND</div>
                 <div className="cart-product-quantity">
                   <button onClick={() => handleDecreaseCart(cartItems)}>
                     -
@@ -90,7 +90,7 @@ const Cart = () => {
                   </button>
                 </div>
                 <div className="cart-product-total-price">
-                  {cartItems.price * cartItems.cartQuantity}VND
+                  {cartItems.Price * cartItems.cartQuantity}VND
                 </div>
               </div>
             ))}

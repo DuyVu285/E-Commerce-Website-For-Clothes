@@ -24,12 +24,12 @@ const Home = () => {
           <h2>New Arrivals</h2>
           <div className="products">
             {data?.map((product) => (
-              <div key={product.id} className="product">
-                <h3>{product.name}</h3>
-                <img src={product.image} alt={product.name} />
+              <div key={product.ProductID} className="product">
+                <h3>{product.Name}</h3>
+                <img src={product.Image} alt={product.Name} />
                 <div className="details">
-                  <span>{product.desc}</span>
-                  <span className="price">{product.price}VND</span>
+                  <span>{product.Description}</span>
+                  <span className="price">{product.Price}VND</span>
                 </div>
                 <button onClick={() => handleAddToCart(product)}>
                   Add To Cart
