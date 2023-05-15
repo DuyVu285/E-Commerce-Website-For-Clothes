@@ -26,7 +26,9 @@ const Home = () => {
             {data?.map((product) => (
               <div key={product.ProductID} className="product">
                 <h3>{product.Name}</h3>
-                <img src={product.Image} alt={product.Name} />
+                <a href={`/product/${product.ProductID}`}>
+                  <img src={product.Image} alt={product.Name} />
+                </a>
                 <div className="details">
                   <span>{product.Description}</span>
                   <span className="price">{product.Price}VND</span>

@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import { Link } from "react-router-dom";
+import { styled } from "styled-components";
+import React from "react";
 
 const NavBar = () => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
@@ -25,8 +27,35 @@ const NavBar = () => {
           </span>
         </div>
       </Link>
+      <div className="nav-buttons">
+          <AuthLinks>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Sign Up</Link>
+          </AuthLinks>
+      </div>
     </nav>
   );
 };
 
 export default NavBar;
+
+const AuthLinks = styled.div`
+  a {
+    &:last-child {
+      margin-left: 2rem;
+    }
+  }
+`;
+
+const Links = styled.div`
+  color: white;
+  display: flex;
+
+  div {
+    cursor: pointer;
+
+    &:last-child {
+      margin-left: 2rem;
+    }
+  }
+`;
