@@ -11,7 +11,8 @@ import NotFound from "./components/NotFound";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Product from "./components/Product";
-import Category from "./components/ProductListByCategory"
+import ProductCategory from "./components/ProductListByCategory"
+import Category from "./components/Category"
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route path="/not-found" component={NotFound} />
           <Route path="/" exact component={Home} />
           <Route path="/product/:ProductID" component={Product} />
-          <Route path="/category/:CategoryName" component={Category} />
+          <Route path="/category" exact component={Category}/>
+          <Route path="/category/:CategoryName" component={ProductCategory} />
           <Redirect to="/not-found" />
         </Switch>
       </BrowserRouter>

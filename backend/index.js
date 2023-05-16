@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
-const registerRouter = require('./auth/register');
-const loginRouter = require('./auth/login');
-const productRouter = require('./routes/productRoute');
-const userRouter = require('./routes/userRoute');
-const categoryRouter = require('./routes/categoryRoute');
+const registerRouter = require("./auth/register");
+const loginRouter = require("./auth/login");
+const productRouter = require("./routes/productRoute");
+const userRouter = require("./routes/userRoute");
+const categoryRouter = require("./routes/categoryRoute");
+const categoryListRouter = require("./routes/categoryListRoute");
 
 const app = express();
 
@@ -16,7 +17,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root123",
-  database: "ecommerce", 
+  database: "ecommerce",
 });
 
 connection.connect((err) => {
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 
 app.use(productRouter);
 app.use(categoryRouter);
+app.use(categoryListRouter);
 app.use(userRouter);
 app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);

@@ -1,4 +1,4 @@
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import React from "react";
@@ -7,42 +7,61 @@ const NavBar = () => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   return (
     <nav className="nav-bar">
+      <RightLinks>
       <Link to="/">
         <h2>OnlineShop</h2>
       </Link>
-      <Link to="/cart">
-        <div className="nav-bag">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="35"
-            height="35"
-            fill="currentColor"
-            className="bi bi-cart-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-          </svg>
-          <span className="bag-quantity">
-            <span>{cartTotalQuantity}</span>
-          </span>
-        </div>
-      </Link>
-      <div className="nav-buttons">
-          <AuthLinks>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Sign Up</Link>
-          </AuthLinks>
-      </div>
+      <Link to="/category"><h3>Category</h3></Link>
+      </RightLinks>
+      <LeftLinks>
+        <Link to="/cart">
+          <div className="nav-bag">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="35"
+              height="35"
+              fill="currentColor"
+              className="bi bi-cart-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+            <span className="bag-quantity">
+              <span>{cartTotalQuantity}</span>
+            </span>
+          </div>
+        </Link>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Sign Up</Link>
+      </LeftLinks>
     </nav>
   );
 };
 
 export default NavBar;
 
-const AuthLinks = styled.div`
+const LeftLinks = styled.div`
+  display: flex;
+  align-items: center;
+
+  .auth-links {
+    margin-left: auto;
+  }
+
   a {
-    &:last-child {
-      margin-left: 2rem;
-    }
+    margin-left: 2rem;
+  }
+`;
+
+const RightLinks = styled.div`
+  display: flex;
+  align-items: center;
+
+  .auth-links {
+    margin-right: auto;
+  }
+
+  a {
+    margin-right: 2rem;
   }
 `;
