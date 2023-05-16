@@ -46,16 +46,3 @@ const AuthLinks = styled.div`
     }
   }
 `;
-
-const Links = styled.div`
-  color: white;
-  display: flex;
-
-  div {
-    cursor: pointer;
-
-    &:last-child {
-      margin-left: 2rem;
-    }
-  }
-`;
