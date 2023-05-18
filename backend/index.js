@@ -7,6 +7,7 @@ const productRouter = require("./routes/productRoute");
 const userRouter = require("./routes/userRoute");
 const categoryRouter = require("./routes/categoryRoute");
 const categoryListRouter = require("./routes/categoryListRoute");
+const searchRouter = require("./routes/searchRoute")
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(userRouter);
 app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);
 app.use(loginRouter);
+app.use(searchRouter)
 
 const port = process.env.PORT || 5000;
 

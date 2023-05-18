@@ -1,19 +1,35 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import styled from "styled-components";
 import React from "react";
 
 const NavBar = () => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
+  const history = useHistory();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.search.value;
+    history.push(`/search/${searchTerm}`);
+  };
+
   return (
     <nav className="nav-bar">
       <RightLinks>
-      <Link to="/">
-        <h2>OnlineShop</h2>
-      </Link>
-      <Link to="/category"><h3>Category</h3></Link>
+        <Link to="/">
+          <h2>OnlineShop</h2>
+        </Link>
+        <Link to="/category">
+          <h3>Category</h3>
+        </Link>
       </RightLinks>
       <LeftLinks>
+        <SearchContainer>
+          <form onSubmit={handleSearch}>
+            <SearchInput type="text" name="search" placeholder="Search" />
+            <SearchButton type="submit">Search</SearchButton>
+          </form>
+        </SearchContainer>
         <Link to="/cart">
           <div className="nav-bag">
             <svg
@@ -63,5 +79,29 @@ const RightLinks = styled.div`
 
   a {
     margin-right: 2rem;
+  }
+`;
+
+const SearchInput = styled.input`
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 4px;
+`;
+
+const SearchButton = styled.button`
+  padding: 0.5rem 1rem;
+  background-color: #f5f5f5;
+  border: 1px solid gray;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+
+  form {
+    margin-right: 1rem;
   }
 `;
