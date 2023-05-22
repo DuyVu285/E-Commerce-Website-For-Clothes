@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -6,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 
 import NavBar from "./components/NavBar";
 import Cart from "./components/Cart";
-import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -14,6 +14,7 @@ import Product from "./components/Product";
 import ProductCategory from "./components/ProductListByCategory";
 import Category from "./components/Category";
 import Search from "./components/Search";
+import HomePage  from "./components/HomePage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,7 +47,7 @@ function App() {
             <Login setIsLoggedIn={handleLogin} setUsername={setUsername} />
           </Route>
           <Route path="/not-found" component={NotFound} />
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={HomePage} />
           <Route path="/product/:ProductID" component={Product} />
           <Route path="/category" exact component={Category} />
           <Route path="/search/:searchItem" exact component={Search} />

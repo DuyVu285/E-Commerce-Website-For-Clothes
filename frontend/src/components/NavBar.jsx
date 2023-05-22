@@ -26,6 +26,9 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn, username }) => {
         <Link to="/category">
           <h3>Category</h3>
         </Link>
+        <Link to="/category/NewArrivals">
+          <h3>New Arrivals</h3>
+        </Link>
       </RightLinks>
       <LeftLinks>
         <SearchContainer>
