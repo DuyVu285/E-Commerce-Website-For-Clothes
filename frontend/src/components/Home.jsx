@@ -22,23 +22,23 @@ const Home = () => {
       ) : (
         <>
           <h2>New Arrivals</h2>
-          <div className="products">
-            {data?.map((product) => (
-              <div key={product.ProductID} className="product">
-                <h3>{product.Name}</h3>
-                <a href={`/product/${product.ProductID}`}>
-                  <img src={product.Image} alt={product.Name} />
-                </a>
-                <div className="details">
-                  <span>{product.Description}</span>
-                  <span className="price">{product.Price}VND</span>
+            <div className="products">
+              {data?.map((product) => (
+                <div key={product.ProductID} className="product">
+                  <h3>{product.Name}</h3>
+                  <a href={`/product/${product.ProductID}`}>
+                    <img src={product.Image} alt={product.Name} />
+                  </a>
+                  <div className="details">
+                    <span>{product.Description}</span>
+                    <span className="price">{product.Price}VND</span>
+                  </div>
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add To Cart
+                  </button>
                 </div>
-                <button onClick={() => handleAddToCart(product)}>
-                  Add To Cart
-                </button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
         </>
       )}
     </div>

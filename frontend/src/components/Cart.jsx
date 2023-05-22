@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   addToCart,
   clearCart,
   decreaseCart,
   removeFromCart,
-  getTotals
+  getTotals,
 } from "../features/cartSlice";
 
-const Cart = () => {
+const Cart = ({ isLoggedIn }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getTotals());
@@ -31,6 +32,14 @@ const Cart = () => {
 
   const handleClearCart = () => {
     dispatch(clearCart());
+  };
+
+  const handleCheckout = () => {
+    if (isLoggedIn) {
+      history.push("/checkout");
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
@@ -105,7 +114,11 @@ const Cart = () => {
                 <span className="amount"> {cart.cartTotalAmount} VND</span>
               </div>
               <p>Tax and shipping calculated at checkout</p>
-              <button>Check out</button>
+              {isLoggedIn ? (
+                <button onClick={handleCheckout}>Checkout</button>
+              ) : (
+                <button onClick={handleCheckout}>Login to Checkout</button>
+              )}
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
@@ -117,7 +130,7 @@ const Cart = () => {
                     viewBox="0 0 16 16"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                     />
                   </svg>

@@ -1,6 +1,6 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useState } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -16,14 +16,35 @@ import Category from "./components/Category";
 import Search from "./components/Search";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const handleLogin = (username) => {
+    setIsLoggedIn(true);
+    setUsername(username);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+  };
+
   return (
-    <div className="App">
+    <div>
       <BrowserRouter>
-        <NavBar />
+        <NavBar
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={handleLogout}
+          username={username}
+        />
         <Switch>
-          <Route path="/cart" exact component={Cart} />
+          <Route path="/cart" exact>
+            <Cart isLoggedIn={isLoggedIn} />
+          </Route>{" "}
           <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />
+          <Route path="/login" exact>
+            <Login setIsLoggedIn={handleLogin} setUsername={setUsername} />
+          </Route>
           <Route path="/not-found" component={NotFound} />
           <Route path="/" exact component={Home} />
           <Route path="/product/:ProductID" component={Product} />

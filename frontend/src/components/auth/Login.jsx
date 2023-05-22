@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { StyledForm } from "./StyledForm";
 import { toast } from "react-toastify";
 import authenticate from "../../features/authenticate";
+import { useHistory } from "react-router-dom";
 
-const Login = () => {
+
+const Login = ({ setIsLoggedIn, setUsername }) => {
   const initialState = {
     Username: "",
     Password: "",
   };
 
+  const history = useHistory();
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e) => {
@@ -24,11 +27,18 @@ const Login = () => {
     }
 
     try {
-      await authenticate(formData,"login");
+      
+      await authenticate(formData, "login");
       setFormData(initialState);
-      toast.success("Login successful", {
+      setIsLoggedIn(true);
+      setUsername(formData.Username);
+      toast.success("Login successful. Returning to Homepage", {
         position: "bottom-left",
       });
+      
+      setTimeout(() => {
+        history.push("/");
+      }, 2000);
     } catch (error) {
       console.error(error);
       toast.error("Incorrect Username/Password!", {

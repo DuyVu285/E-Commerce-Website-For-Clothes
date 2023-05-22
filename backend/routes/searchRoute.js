@@ -5,7 +5,8 @@ const connection = require("../connection");
 // Retrieve Product Query
 router.get("/search/:searchItem", (req, res) => {
   const { searchItem } = req.params;
-  const sql = `SELECT * FROM product WHERE Name LIKE '%${searchItem}%'`;
+  const sql = `SELECT * FROM product WHERE Name  OR 
+  Description LIKE '%${searchItem}%'`;
   connection.query(sql, (error, results) => {
     if (error) {
       console.error("Error executing the query:", error);

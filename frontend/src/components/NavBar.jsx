@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React from "react";
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn, setIsLoggedIn, username }) => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const history = useHistory();
 
@@ -11,6 +11,10 @@ const NavBar = () => {
     e.preventDefault();
     const searchTerm = e.target.search.value;
     history.push(`/search/${searchTerm}`);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   };
 
   return (
@@ -47,8 +51,17 @@ const NavBar = () => {
             </span>
           </div>
         </Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Sign Up</Link>
+        {isLoggedIn ? (
+          <>
+            <Link to="">{username}</Link>
+            <Link to="#" onClick={handleLogout}>Logout</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Sign Up</Link>
+          </>
+        )}
       </LeftLinks>
     </nav>
   );
