@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import authenticate from "../../features/authenticate";
 import { useHistory } from "react-router-dom";
 
-
 const Login = ({ setIsLoggedIn, setUsername }) => {
   const initialState = {
     Username: "",
@@ -27,18 +26,17 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
     }
 
     try {
-      
       await authenticate(formData, "login");
       setFormData(initialState);
       setIsLoggedIn(true);
       setUsername(formData.Username);
-      toast.success("Login successful. Returning to Homepage", {
+      toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
-      
+
       setTimeout(() => {
-        history.push("/");
-      }, 2000);
+        history.goBack();
+      }, 1000);
     } catch (error) {
       console.error(error);
       toast.error("Incorrect Username/Password!", {

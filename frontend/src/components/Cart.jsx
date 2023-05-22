@@ -117,7 +117,7 @@ const Cart = ({ isLoggedIn }) => {
               {isLoggedIn ? (
                 <button onClick={handleCheckout}>Checkout</button>
               ) : (
-                <button onClick={handleCheckout}>Login to Checkout</button>
+                <button style={{backgroundColor:'yellow',color:'black'}} onClick={handleCheckout}>Login to Checkout</button>
               )}
               <div className="continue-shopping">
                 <Link to="/">
