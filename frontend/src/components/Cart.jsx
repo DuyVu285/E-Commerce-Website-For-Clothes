@@ -76,30 +76,30 @@ const Cart = ({ isLoggedIn }) => {
             <h3 className="Total">Total</h3>
           </div>
           <div className="cart-items">
-            {cart.cartItems?.map((cartItems) => (
-              <div className="cart-item" key={cartItems.id}>
+            {cart.cartItems?.map((cartItem) => (
+              <div className="cart-item" key={cartItem.ProductID}>
                 <div className="cart-product">
-                  <img src={cartItems.Image} alt={cartItems.Name} />
+                  <img src={cartItem.Image} alt={cartItem.Name} />
                   <div>
-                    <h3>{cartItems.Name}</h3>
-                    <p>{cartItems.Description}</p>
-                    <button onClick={() => handleRemoveFromCart(cartItems)}>
+                    <h3>{cartItem.Name}</h3>
+                    <p>{cartItem.Description}</p>
+                    <button onClick={() => handleRemoveFromCart(cartItem)}>
                       Remove
                     </button>
                   </div>
                 </div>
-                <div className="cart-product-price">{cartItems.Price}VND</div>
+                <div className="cart-product-price">{cartItem.Price}VND</div>
                 <div className="cart-product-quantity">
-                  <button onClick={() => handleDecreaseCart(cartItems)}>
+                  <button onClick={() => handleDecreaseCart(cartItem)}>
                     -
                   </button>
-                  <div className="count">{cartItems.cartQuantity}</div>
-                  <button onClick={() => handleIncreaseCart(cartItems)}>
+                  <div className="count">{cartItem.cartQuantity}</div>
+                  <button onClick={() => handleIncreaseCart(cartItem)}>
                     +
                   </button>
                 </div>
                 <div className="cart-product-total-price">
-                  {cartItems.Price * cartItems.cartQuantity}VND
+                  {cartItem.Price * cartItem.cartQuantity}VND
                 </div>
               </div>
             ))}

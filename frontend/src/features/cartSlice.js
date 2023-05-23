@@ -7,6 +7,7 @@ const initialState = {
     : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
+  userID: null, // Add userID to the initial state
 };
 
 const cartSlice = createSlice({
@@ -55,7 +56,7 @@ const cartSlice = createSlice({
 
       if (state.cartItems[itemIndex].cartQuantity > 1) {
         state.cartItems[itemIndex].cartQuantity -= 1;
-        toast.error(` Decrease ${action.payload.Name} cart quantity`, {
+        toast.error(`Decrease ${action.payload.Name} cart quantity`, {
           position: "bottom-left",
         });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
@@ -92,11 +93,23 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = totalQuantity;
       state.cartTotalAmount = totalAmount;
     },
+    updateCartWithUserID(state, action) {
+      state.userID = action.payload;
+      toast.success("Cart updated with user ID", {
+        position: "bottom-left",
+      });
+    },
   },
 });
 
-export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  decreaseCart,
+  clearCart,
+  getTotals,
+  updateCartWithUserID,
+} = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
 

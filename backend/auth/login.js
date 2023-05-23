@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
       // User exists and credentials are correct
       // Generate a token or perform any additional actions here
 
-      res.status(200).json({ message: "Login successful" });
+      res.status(200).json({ message: "Login successful", UserID: user.UserID });
     });
   });
 });
