@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { addCartItem, clearCartApi } from "../features/cartApi";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-
+import PayButton from "./PayButton";
 import {
   addToCart,
   clearCart,
@@ -144,7 +144,7 @@ const Cart = () => {
               </div>
               <p>Tax and shipping calculated at checkout</p>
               {isLoggedIn ? (
-                <button onClick={handleCheckout}>Checkout</button>
+                <PayButton cartItems ={cartItems}/>
               ) : (
                 <button
                   style={{ backgroundColor: "yellow", color: "black" }}

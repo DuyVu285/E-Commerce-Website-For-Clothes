@@ -8,6 +8,7 @@ const userRouter = require("./routes/userRoute");
 const categoryRouter = require("./routes/categoryRoute");
 const categoryListRouter = require("./routes/categoryListRoute");
 const searchRouter = require("./routes/searchRoute");
+const stripeRouter = require("./routes/stripeRoute");
 
 const app = express();
 
@@ -41,6 +42,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);
 app.use(loginRouter);
 app.use(searchRouter);
+app.use(stripeRouter);
+
+const calculateOrderAmount = (items) => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
+};
 
 const port = process.env.PORT || 5000;
 

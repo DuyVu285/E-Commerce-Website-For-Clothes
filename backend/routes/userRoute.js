@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
-const { route } = require("./stripe");
+const { route } = require("./stripeRoute");
 
 // Retrieve all users
 router.get("/users", (req, res) => {
