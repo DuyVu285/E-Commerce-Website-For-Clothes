@@ -4,6 +4,8 @@ const API_BASE_URL = "http://localhost:5000";
 
 export const addCartItem = async (userID, cartItems) => {
   try {
+    console.log(cartItems);
+    console.log(userID);
     const response = await axios.put(
       `${API_BASE_URL}/users/${userID}/cart`,
       cartItems
@@ -16,10 +18,10 @@ export const addCartItem = async (userID, cartItems) => {
 };
 
 export const clearCartApi = async (userID) => {
-    try {
-      const response = await axios.delete(`${API_BASE_URL}/users/${userID}/cart`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response.data.error);
-    }
-  };
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/users/${userID}/cart`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.error);
+  }
+};

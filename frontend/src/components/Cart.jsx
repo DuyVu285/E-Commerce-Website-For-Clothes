@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { addCartItem, clearCartApi } from "../features/cartApi";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   addToCart,
@@ -12,30 +12,33 @@ import {
   getTotals,
 } from "../features/cartSlice";
 
-const handleUpdateCart = async (userID, cartItems) => {
-  try {
-    await addCartItem(userID, cartItems);
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to update cart", { position: "bottom-left" });
-  }
-};
-
-const Cart = ({ isLoggedIn }) => {
-  const cart = useSelector((state) => state.cart);
-  const userID = useSelector((state) => state.cart.userID);
+const Cart = () => {
   const history = useHistory();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const userID = useSelector((state) => state.auth.userID);
+  const cartTotalAmount = useSelector((state) => state.cart.cartTotalAmount);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLoggedIn && cart.cartItems.length > 0) {
-      handleUpdateCart(userID, cart.cartItems);
+    const handleUpdateCart = async (userID, cartItems) => {
+      try {
+        await addCartItem(userID, cartItems);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to update cart", { position: "bottom-left" });
+      }
+    };
+
+    if (isLoggedIn && cartItems.length > 0) {
+      handleUpdateCart(userID, cartItems);
     }
-  }, [isLoggedIn, cart.cartItems]);
+  }, [isLoggedIn, cartItems, userID, dispatch]);
 
   useEffect(() => {
     dispatch(getTotals());
-  }, [cart, dispatch]);
+  }, [cartItems, dispatch]);
 
   const handleRemoveFromCart = (cartItem) => {
     dispatch(removeFromCart(cartItem));
@@ -71,7 +74,7 @@ const Cart = ({ isLoggedIn }) => {
   return (
     <div className="cart-container">
       <h2>Cart</h2>
-      {cart.cartItems.length === 0 ? (
+      {cartItems.length === 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">
@@ -85,7 +88,7 @@ const Cart = ({ isLoggedIn }) => {
                 viewBox="0 0 16 16"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
@@ -102,7 +105,7 @@ const Cart = ({ isLoggedIn }) => {
             <h3 className="Total">Total</h3>
           </div>
           <div className="cart-items">
-            {cart.cartItems?.map((cartItem) => (
+            {cartItems?.map((cartItem) => (
               <div className="cart-item" key={cartItem.ProductID}>
                 <div className="cart-product">
                   <img src={cartItem.Image} alt={cartItem.Name} />
@@ -137,7 +140,7 @@ const Cart = ({ isLoggedIn }) => {
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount"> {cart.cartTotalAmount} VND</span>
+                <span className="amount"> {cartTotalAmount} VND</span>
               </div>
               <p>Tax and shipping calculated at checkout</p>
               {isLoggedIn ? (
@@ -175,5 +178,4 @@ const Cart = ({ isLoggedIn }) => {
     </div>
   );
 };
-
 export default Cart;

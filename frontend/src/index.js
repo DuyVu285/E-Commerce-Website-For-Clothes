@@ -9,9 +9,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import productsReducer, { productsFetch } from "./features/productsSlice";
 import { productsApi } from "./features/productsApi";
 import { cartReducer, getTotals } from "./features/cartSlice";
+import authReducer from "./features/authSlice";
 
 const store = configureStore({
   reducer: {
+    auth: authReducer,
     products: productsReducer,
     cart: cartReducer,
     [productsApi.reducerPath]: productsApi.reducer,
@@ -28,7 +30,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <App /> 
     </Provider>
   </Router>
 );

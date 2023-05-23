@@ -1,11 +1,15 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React from "react";
+import { setLoggedIn, setUsername } from "../features/authSlice";
 
-const NavBar = ({ isLoggedIn, setIsLoggedIn, username }) => {
+const NavBar = () => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const username = useSelector((state) => state.auth.username);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -14,7 +18,8 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn, username }) => {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    dispatch(setLoggedIn(false));
+    dispatch(setUsername(null));
   };
 
   return (
@@ -57,7 +62,9 @@ const NavBar = ({ isLoggedIn, setIsLoggedIn, username }) => {
         {isLoggedIn ? (
           <>
             <Link to="">{username}</Link>
-            <Link to="#" onClick={handleLogout}>Logout</Link>
+            <Link to="#" onClick={handleLogout}>
+              Logout
+            </Link>
           </>
         ) : (
           <>

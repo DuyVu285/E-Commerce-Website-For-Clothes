@@ -1,10 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
+import { setUserID } from "./authSlice";
 
-const authenticate = async (formData, endpoint) => {
+const authenticate = async (dispatch, formData, endpoint) => {
   try {
-    const response = await axios.post(`http://localhost:5000/${endpoint}`, formData);
+    const response = await axios.post(
+      `http://localhost:5000/${endpoint}`,
+      formData
+    );
     console.log(response.data);
-
+    dispatch(setUserID(response.data.UserID));
     return response.data;
   } catch (error) {
     console.error(error);

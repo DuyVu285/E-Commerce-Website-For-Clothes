@@ -6,8 +6,9 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartItem } from "../../features/cartApi";
 import { updateCartWithUserID } from "../../features/cartSlice";
+import { setLoggedIn, setUsername } from "../../features/authSlice";
 
-const Login = ({ setIsLoggedIn, setUsername }) => {
+const Login = () => {
   const initialState = {
     Username: "",
     Password: "",
@@ -16,7 +17,9 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
   const history = useHistory();
   const [formData, setFormData] = useState(initialState);
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const userID = useSelector((state) => state.auth.UserID);
   const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,7 +27,7 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
   const handleUpdateCart = async (userID, cartItems) => {
     try {
       console.log(userID, cartItems);
-      await addCartItem(userID, cartItems);
+      await addCartItem(dispatch, userID, cartItems);
     } catch (error) {
       console.error(error);
       toast.error("Failed to update cart", { position: "bottom-left" });
@@ -40,17 +43,17 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
     }
 
     try {
-      const { UserID } = await authenticate(formData, "login");
+      await authenticate(dispatch, formData, "login");
       setFormData(initialState);
-      setIsLoggedIn(true);
-      setUsername(formData.Username);
+      dispatch(setLoggedIn(true));
+      dispatch(setUsername(formData.Username));
       toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
-      dispatch(updateCartWithUserID(UserID));
+      dispatch(updateCartWithUserID(userID));
 
       if (cartItems.length > 0) {
-        await handleUpdateCart(UserID, cartItems);
+        await handleUpdateCart(userID, cartItems);
       }
 
       setTimeout(() => {
