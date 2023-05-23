@@ -7,7 +7,7 @@ const initialState = {
     : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
-  userID: null, // Add userID to the initial state
+  userID: null,
 };
 
 const cartSlice = createSlice({

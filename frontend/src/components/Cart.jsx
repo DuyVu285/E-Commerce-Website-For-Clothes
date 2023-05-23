@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { addCartItem, clearCartApi } from "../features/cartApi";
+import { toast } from "react-toastify";
+
 import {
   addToCart,
   clearCart,
@@ -9,10 +12,26 @@ import {
   getTotals,
 } from "../features/cartSlice";
 
+const handleUpdateCart = async (userID, cartItems) => {
+  try {
+    await addCartItem(userID, cartItems);
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to update cart", { position: "bottom-left" });
+  }
+};
+
 const Cart = ({ isLoggedIn }) => {
   const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  const userID = useSelector((state) => state.cart.userID);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn && cart.cartItems.length > 0) {
+      handleUpdateCart(userID, cart.cartItems);
+    }
+  }, [isLoggedIn, cart.cartItems]);
 
   useEffect(() => {
     dispatch(getTotals());
@@ -30,8 +49,15 @@ const Cart = ({ isLoggedIn }) => {
     dispatch(addToCart(cartItem));
   };
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
+  const handleClearCart = async () => {
+    try {
+      await clearCartApi(userID);
+      dispatch(clearCart());
+      toast.success("Cart cleared successfully", { position: "bottom-left" });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to clear cart", { position: "bottom-left" });
+    }
   };
 
   const handleCheckout = () => {
@@ -117,7 +143,12 @@ const Cart = ({ isLoggedIn }) => {
               {isLoggedIn ? (
                 <button onClick={handleCheckout}>Checkout</button>
               ) : (
-                <button style={{backgroundColor:'yellow',color:'black'}} onClick={handleCheckout}>Login to Checkout</button>
+                <button
+                  style={{ backgroundColor: "yellow", color: "black" }}
+                  onClick={handleCheckout}
+                >
+                  Login to Checkout
+                </button>
               )}
               <div className="continue-shopping">
                 <Link to="/">

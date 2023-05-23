@@ -3,8 +3,9 @@ import { StyledForm } from "./StyledForm";
 import { toast } from "react-toastify";
 import authenticate from "../../features/authenticate";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addCartItem } from "../../features/cartApi";
+import { updateCartWithUserID } from "../../features/cartSlice";
 
 const Login = ({ setIsLoggedIn, setUsername }) => {
   const initialState = {
@@ -15,7 +16,7 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
   const history = useHistory();
   const [formData, setFormData] = useState(initialState);
   const cartItems = useSelector((state) => state.cart.cartItems);
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -46,6 +47,7 @@ const Login = ({ setIsLoggedIn, setUsername }) => {
       toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
+      dispatch(updateCartWithUserID(UserID));
 
       if (cartItems.length > 0) {
         await handleUpdateCart(UserID, cartItems);

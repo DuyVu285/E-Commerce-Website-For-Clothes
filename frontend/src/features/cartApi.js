@@ -14,3 +14,12 @@ export const addCartItem = async (userID, cartItems) => {
     throw new Error(error.response.data.error);
   }
 };
+
+export const clearCartApi = async (userID) => {
+    try {
+      const response = await axios.delete(`${API_BASE_URL}/users/${userID}/cart`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.error);
+    }
+  };

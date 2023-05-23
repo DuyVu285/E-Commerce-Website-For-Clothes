@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
+const { route } = require("./stripe");
 
 // Retrieve all users
 router.get("/users", (req, res) => {
@@ -83,6 +84,24 @@ router.put("/users/:userID/cart", (req, res) => {
       // 3. Cart updated successfully
       res.sendStatus(200);
     });
+  });
+});
+
+router.delete("/users/:userID/cart", (req, res) => {
+  const userID = req.params.userID;
+  const cartItems = req.body;
+
+  // Delete all existing cart items for the given userID
+  const deleteQuery = `DELETE FROM cart WHERE UserID = ?`;
+  connection.query(deleteQuery, [userID], (error, result) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+      return;
+    }
+
+    // 3. Cart updated successfully
+    res.sendStatus(200);
   });
 });
 
