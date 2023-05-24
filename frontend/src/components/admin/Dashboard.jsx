@@ -13,6 +13,8 @@ const Dashboard = ({ children }) => {
           <NavLinkStyled to="/admin/products" activeClassName="link-active">
             Products
           </NavLinkStyled>
+          <NavLinkStyled to="/admin/create-product" activeClassName="link-active">
+          </NavLinkStyled>
         </SideNav>
         <Content>{children}</Content>
       </StyledDashboard>

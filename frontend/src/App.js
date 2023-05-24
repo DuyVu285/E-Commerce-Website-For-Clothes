@@ -42,7 +42,7 @@ function App() {
           <Route path="/admin">
             <Dashboard>
               <Route path="/admin/products" component={Products} />
-              <Route path="/admin/create-product" component={CreateProduct} />
+              <Route path="/admin/products/create-product" component={CreateProduct} />
               <Route path="/admin/summary" component={Summary} />
             </Dashboard>
           </Route>
