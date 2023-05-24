@@ -6,7 +6,6 @@ const authenticate = async (formData, endpoint) => {
       `http://localhost:5000/${endpoint}`,
       formData
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -33,7 +33,6 @@ const Login = () => {
 
   const handleUpdateCart = async (UserID, cartItems) => {
     try {
-      console.log(UserID, cartItems);
       await addCartItem(dispatch, UserID, cartItems);
     } catch (error) {
       console.error(error);
@@ -51,7 +50,6 @@ const Login = () => {
 
     try {
       const { UserID } = await authenticate(formData, "login");
-      console.log(UserID);
       setFormData(initialState);
       dispatch(setLoggedIn(true));
       dispatch(setUsername(formData.Username));

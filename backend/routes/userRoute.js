@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
-const { route } = require("./stripeRoute");
-const { v4: uuidv4 } = require("uuid");
 
 // Retrieve all users
 router.get("/users", (req, res) => {

@@ -19,7 +19,6 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const userID = useSelector((state) => state.auth.userID);
   const cartTotalAmount = useSelector((state) => state.cart.cartTotalAmount);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -160,7 +159,7 @@ const Cart = () => {
               </div>
               <p>Tax and shipping calculated at checkout</p>
               {isLoggedIn ? (
-                <PayButton cartItems={cartItems} />
+                <PayButton cartItems={cartItems} userID = {userID}/>
               ) : (
                 <button
                   style={{ backgroundColor: "yellow", color: "black" }}
