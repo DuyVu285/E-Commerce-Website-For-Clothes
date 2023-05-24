@@ -6,6 +6,7 @@ const Dashboard = ({ children }) => {
     <StyledDashboard>
       <SideNav>
         <h3>Quick Links</h3>
+        <NavLink to="/admin/summary">Summary</NavLink>
         <NavLink to="/admin/products">Products</NavLink>
       </SideNav>
     </StyledDashboard>
