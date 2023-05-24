@@ -5,16 +5,22 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import NavBar from "./components/NavBar";
-import Cart from "./components/cart/Cart";
 import NotFound from "./components/NotFound";
+import Search from "./components/search/Search";
+
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+
 import Product from "./components/pages/Product";
 import ProductCategory from "./components/pages/ProductListByCategory";
 import Category from "./components/pages/Category";
-import Search from "./components/search/Search";
 import HomePage from "./components/pages/HomePage";
+
+import Cart from "./components/cart/Cart";
 import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
+import Dashboard from "./components/admin/Dashboard";
+import Summary from "./components/admin/Summary";
+import Products from "./components/admin/Products";
 
 function App() {
   return (
@@ -32,6 +38,9 @@ function App() {
           <Route path="/search/:searchItem" exact component={Search} />
           <Route path="/category/:CategoryName" component={ProductCategory} />
           <Route path="/checkout-success" component={CheckoutSuccess} />
+          <Route path="/admin" component={Dashboard} />
+          <Route path="/admin/products" component={Products} />
+          <Route path="/admin/summary" component={Summary} />
           <Route path="*" component={NotFound} />
         </Switch>
       </BrowserRouter>
