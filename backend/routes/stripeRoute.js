@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
-
+const util = require('util');
+const queryPromise = util.promisify(connection.query).bind(connection);
 const stripe = require("stripe")(
   "sk_test_51NAV7gIu8TWD2EDaCDoCplcoPO3rOug1aVumex3l7oqaHVkYNBHD85Stq9Z1OfuzO5w1x4hu2YbYTt0rsl0DhKsU00z6lwn8S4"
 );
@@ -100,14 +101,6 @@ router.post("/create-checkout-session", async (req, res) => {
 const createOrder = async (customer, data) => {
   const cartItems = JSON.parse(customer.metadata.cart);
 
-  const products = cartItems.map((item) => {
-    return {
-      OrderID: null, // We will insert this value later
-      ProductID: item.ProductID,
-      Quantity: item.cartQuantity,
-    };
-  });
-
   const orderData = {
     UserID: customer.metadata.userID,
     SubTotal: data.amount_subtotal,
@@ -119,22 +112,24 @@ const createOrder = async (customer, data) => {
   try {
     // Insert order into the 'order' table
     const orderQuery = "INSERT INTO `order` SET ?";
-    const orderResult = connection.query(orderQuery, orderData);
+    const orderResult = await queryPromise(orderQuery, orderData);
 
-    console.log(orderResult.OrderID);
-    const OrderID = orderResult[0].insertId;
+    const insertId = orderResult.insertId;
+    console.log('Inserted ID:', insertId);
 
-    // Insert the products into the 'order_products' table
-    for (let i = 0; i < products.length; i++) {
-      products[i].OrderID = OrderID;
-      const productQuery = "INSERT INTO `order_products` SET ?";
-      connection.query(productQuery, products[i]);
-    }
+    // Use the insertId to insert products into the 'order_products' table
+    const productQuery =
+      "INSERT INTO `order_products`(OrderID, ProductID, Quantity) VALUES ?";
+      const products = cartItems.map((item) => {
+        return [insertId, item.ProductID, item.cartQuantity];
+      });
+  
 
-    console.log("Order stored successfully in the MySQL database.");
-  } catch (err) {
-    console.log(err);
-  } 
+    const productResult = await queryPromise(productQuery, [products]);
+    console.log('Products inserted:', productResult.affectedRows);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // Stripe webhook
