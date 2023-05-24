@@ -3,13 +3,20 @@ import { NavLink } from "react-router-dom";
 
 const Dashboard = ({ children }) => {
   return (
-    <StyledDashboard>
-      <SideNav>
-        <h3>Quick Links</h3>
-        <NavLink to="/admin/summary">Summary</NavLink>
-        <NavLink to="/admin/products">Products</NavLink>
-      </SideNav>
-    </StyledDashboard>
+    <div>
+      <StyledDashboard>
+        <SideNav>
+          <h3>Quick Links</h3>
+          <NavLinkStyled exact to="/admin/summary" activeClassName="link-active">
+            Summary
+          </NavLinkStyled>
+          <NavLinkStyled to="/admin/products" activeClassName="link-active">
+            Products
+          </NavLinkStyled>
+        </SideNav>
+        <Content>{children}</Content>
+      </StyledDashboard>
+    </div>
   );
 };
 
@@ -34,11 +41,16 @@ const SideNav = styled.div`
     text-transform: uppercase;
     font-size: 17px;
   }
+`;
 
-  a {
-    text-decoration: none;
-    margin-bottom: 1rem;
-    font-size: 14px;
+const NavLinkStyled = styled(NavLink)`
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: grey;
+
+  &.link-active {
+    color: blue;
   }
 `;
 

@@ -21,6 +21,7 @@ import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
 import Dashboard from "./components/admin/Dashboard";
 import Summary from "./components/admin/Summary";
 import Products from "./components/admin/Products";
+import CreateProduct from "./components/admin/CreateProduct";
 
 function App() {
   return (
@@ -38,9 +39,13 @@ function App() {
           <Route path="/search/:searchItem" exact component={Search} />
           <Route path="/category/:CategoryName" component={ProductCategory} />
           <Route path="/checkout-success" component={CheckoutSuccess} />
-          <Route path="/admin" component={Dashboard} />
-          <Route path="/admin/products" component={Products} />
-          <Route path="/admin/summary" component={Summary} />
+          <Route path="/admin">
+            <Dashboard>
+              <Route path="/admin/products" component={Products} />
+              <Route path="/admin/create-product" component={CreateProduct} />
+              <Route path="/admin/summary" component={Summary} />
+            </Dashboard>
+          </Route>
           <Route path="*" component={NotFound} />
         </Switch>
       </BrowserRouter>
