@@ -2,8 +2,8 @@
   import { useParams, Link } from "react-router-dom";
   import { useDispatch } from "react-redux";
   import { useHistory } from "react-router";
-  import { useGetProductsByCategoryQuery } from "../features/productsApi";
-  import { addToCart } from "../features/cartSlice";
+  import { useGetProductsByCategoryQuery } from "../../features/productsApi";
+  import { addToCart } from "../../features/cartSlice";
 
   const ProductListByCategory = () => {
     const { CategoryName } = useParams();

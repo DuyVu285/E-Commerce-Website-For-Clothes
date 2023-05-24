@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { useGetProductByIdQuery } from "../features/productsApi";
-import { addToCart } from "../features/cartSlice";
+import { useGetProductByIdQuery } from "../../features/productsApi";
+import { addToCart } from "../../features/cartSlice";
 
 const Product = () => {
   const { ProductID } = useParams();

@@ -5,16 +5,16 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import NavBar from "./components/NavBar";
-import Cart from "./components/Cart";
+import Cart from "./components/cart/Cart";
 import NotFound from "./components/NotFound";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Product from "./components/Product";
-import ProductCategory from "./components/ProductListByCategory";
-import Category from "./components/Category";
-import Search from "./components/Search";
-import HomePage from "./components/HomePage";
-import CheckoutSuccess from "./components/CheckoutSuccess";
+import Product from "./components/pages/Product";
+import ProductCategory from "./components/pages/ProductListByCategory";
+import Category from "./components/pages/Category";
+import Search from "./components/search/Search";
+import HomePage from "./components/pages/HomePage";
+import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
 
 function App() {
   return (

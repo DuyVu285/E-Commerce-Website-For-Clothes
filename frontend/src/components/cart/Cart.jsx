@@ -1,17 +1,17 @@
 import { useEffect, useCallback } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { addCartItem, clearCartApi } from "../features/cartApi";
+import { addCartItem, clearCartApi } from "../../features/cartApi";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import PayButton from "./PayButton";
-import { setLoggedIn, setUsername, setUserID } from "../features/authSlice";
+import PayButton from "../checkout/PayButton";
+import { setLoggedIn, setUsername, setUserID } from "../../features/authSlice";
 import {
   addToCart,
   clearCart,
   decreaseCart,
   removeFromCart,
   getTotals,
-} from "../features/cartSlice";
+} from "../../features/cartSlice";
 
 const Cart = () => {
   const history = useHistory();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGetAllProductsQuery } from "../features/productsApi";
+import { useGetAllProductsQuery } from "../../features/productsApi";
 import { Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
