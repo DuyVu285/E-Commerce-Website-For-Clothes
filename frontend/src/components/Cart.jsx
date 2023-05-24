@@ -1,9 +1,10 @@
-import { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useEffect, useCallback } from "react";
+import { useHistory, Link } from "react-router-dom";
 import { addCartItem, clearCartApi } from "../features/cartApi";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import PayButton from "./PayButton";
+import { setLoggedIn, setUsername, setUserID } from "../features/authSlice";
 import {
   addToCart,
   clearCart,
@@ -22,19 +23,34 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleUpdateCart = async (userID, cartItems) => {
+    const storedLoggedIn = localStorage.getItem("loggedIn");
+    const storedUsername = localStorage.getItem("username");
+    const storedUserID = localStorage.getItem("userid");
+    if (storedLoggedIn && storedUsername && storedUserID) {
+      dispatch(setLoggedIn(storedLoggedIn === "true"));
+      dispatch(setUsername(storedUsername));
+      dispatch(setUserID(storedUserID));
+    }
+  }, [dispatch]);
+
+  const handleUpdateCart = useCallback(
+    async (cartItems) => {
       try {
         await addCartItem(userID, cartItems);
+        toast.success("Cart updated successfully", { position: "bottom-left" });
       } catch (error) {
         console.error(error);
         toast.error("Failed to update cart", { position: "bottom-left" });
       }
-    };
+    },
+    [userID]
+  );
 
+  useEffect(() => {
     if (isLoggedIn && cartItems.length > 0) {
-      handleUpdateCart(userID, cartItems);
+      handleUpdateCart(cartItems);
     }
-  }, [isLoggedIn, cartItems, userID, dispatch]);
+  }, [isLoggedIn, cartItems, handleUpdateCart]);
 
   useEffect(() => {
     dispatch(getTotals());
@@ -144,7 +160,7 @@ const Cart = () => {
               </div>
               <p>Tax and shipping calculated at checkout</p>
               {isLoggedIn ? (
-                <PayButton cartItems ={cartItems}/>
+                <PayButton cartItems={cartItems} />
               ) : (
                 <button
                   style={{ backgroundColor: "yellow", color: "black" }}

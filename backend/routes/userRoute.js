@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
 const { route } = require("./stripeRoute");
+const { v4: uuidv4 } = require("uuid");
 
 // Retrieve all users
 router.get("/users", (req, res) => {
@@ -37,6 +38,10 @@ router.get("/users/:userID", (req, res) => {
 // Retrieve a user's cart by user ID
 router.get("/users/:userID/cart", (req, res) => {
   const userID = req.params.userID;
+  if (!userID || isNaN(userID)) {
+    // userID parameter is missing, do nothing
+    return;
+  }
   const query = "SELECT * FROM Cart WHERE UserID = ?";
   connection.query(query, [userID], (error, results) => {
     if (error) {
@@ -57,7 +62,10 @@ router.get("/users/:userID/cart", (req, res) => {
 router.put("/users/:userID/cart", (req, res) => {
   const userID = req.params.userID;
   const cartItems = req.body;
-
+  if (!userID || isNaN(userID)) {
+    // userID parameter is missing, do nothing
+    return;
+  }
   // Delete all existing cart items for the given userID
   const deleteQuery = `DELETE FROM cart WHERE UserID = ?`;
   connection.query(deleteQuery, [userID], (error, result) => {

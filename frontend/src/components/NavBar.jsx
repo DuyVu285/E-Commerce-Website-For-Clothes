@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { setLoggedIn, setUsername } from "../features/authSlice";
 
 const NavBar = () => {
@@ -10,6 +10,16 @@ const NavBar = () => {
   const username = useSelector((state) => state.auth.username);
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem("loggedIn");
+    const storedUsername = localStorage.getItem("username");
+
+    if (storedLoggedIn && storedUsername) {
+      dispatch(setLoggedIn(storedLoggedIn === "true"));
+      dispatch(setUsername(storedUsername));
+    }
+  }, [dispatch]);
 
   const handleSearch = (e) => {
     e.preventDefault();

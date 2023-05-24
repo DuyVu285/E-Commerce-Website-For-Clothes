@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyledForm } from "./StyledForm";
 import { toast } from "react-toastify";
 import authenticate from "../../features/authenticate";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartItem } from "../../features/cartApi";
-import { updateCartWithUserID } from "../../features/cartSlice";
-import { setLoggedIn, setUsername } from "../../features/authSlice";
+import { setLoggedIn, setUserID, setUsername } from "../../features/authSlice";
 
 const Login = () => {
   const initialState = {
@@ -17,17 +16,25 @@ const Login = () => {
   const history = useHistory();
   const [formData, setFormData] = useState(initialState);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const userID = useSelector((state) => state.auth.UserID);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem("loggedIn");
+    const storedUsername = localStorage.getItem("username");
+    if (storedLoggedIn && storedUsername) {
+      dispatch(setLoggedIn(storedLoggedIn === "true"));
+      dispatch(setUsername(storedUsername));
+    }
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleUpdateCart = async (userID, cartItems) => {
+  const handleUpdateCart = async (UserID, cartItems) => {
     try {
-      console.log(userID, cartItems);
-      await addCartItem(dispatch, userID, cartItems);
+      console.log(UserID, cartItems);
+      await addCartItem(dispatch, UserID, cartItems);
     } catch (error) {
       console.error(error);
       toast.error("Failed to update cart", { position: "bottom-left" });
@@ -43,17 +50,19 @@ const Login = () => {
     }
 
     try {
-      await authenticate(dispatch, formData, "login");
+      const { UserID } = await authenticate(formData, "login");
+      console.log(UserID);
       setFormData(initialState);
       dispatch(setLoggedIn(true));
       dispatch(setUsername(formData.Username));
+      dispatch(setUserID(UserID));
       toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
-      dispatch(updateCartWithUserID(userID));
+      history.goBack();
 
       if (cartItems.length > 0) {
-        await handleUpdateCart(userID, cartItems);
+        await handleUpdateCart(UserID, cartItems);
       }
 
       setTimeout(() => {

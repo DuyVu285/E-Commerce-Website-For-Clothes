@@ -7,7 +7,6 @@ const initialState = {
     : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
-  userID: null,
 };
 
 const cartSlice = createSlice({
@@ -93,23 +92,11 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = totalQuantity;
       state.cartTotalAmount = totalAmount;
     },
-    updateCartWithUserID(state, action) {
-      state.userID = action.payload;
-      toast.success("Cart updated with user ID", {
-        position: "bottom-left",
-      });
-    },
   },
 });
 
-export const {
-  addToCart,
-  removeFromCart,
-  decreaseCart,
-  clearCart,
-  getTotals,
-  updateCartWithUserID,
-} = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals } =
+  cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
 
