@@ -2,22 +2,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import { setLoggedIn, setUsername } from "../features/authSlice";
+import { setLoggedIn, setUsername, setRole } from "../features/authSlice";
 
 const NavBar = () => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const username = useSelector((state) => state.auth.username);
+  const role = useSelector((state) => state.auth.role);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem("loggedIn");
     const storedUsername = localStorage.getItem("username");
+    const storedRole = localStorage.getItem("role");
 
-    if (storedLoggedIn && storedUsername) {
+    if (storedLoggedIn && storedUsername && storedRole) {
       dispatch(setLoggedIn(storedLoggedIn === "true"));
       dispatch(setUsername(storedUsername));
+      dispatch(setRole(storedRole));
     }
   }, [dispatch]);
 
@@ -30,6 +33,8 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
     dispatch(setUsername(null));
+    dispatch(setRole(null));
+    history.push(`/`);
   };
 
   return (
@@ -69,17 +74,28 @@ const NavBar = () => {
             </span>
           </div>
         </Link>
-        {isLoggedIn ? (
+        {role === "Admin" ? (
           <>
-            <Link to="">{username}</Link>
+            <Link to="/admin/summary">Admin</Link>
             <Link to="#" onClick={handleLogout}>
               Logout
             </Link>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Sign Up</Link>
+            {isLoggedIn ? (
+              <>
+                <Link to="">{username}</Link>
+                <Link to="#" onClick={handleLogout}>
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Sign Up</Link>
+              </>
+            )}
           </>
         )}
       </LeftLinks>

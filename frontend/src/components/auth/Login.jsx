@@ -5,7 +5,7 @@ import authenticate from "../../features/authenticate";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartItem } from "../../features/cartApi";
-import { setLoggedIn, setUserID, setUsername } from "../../features/authSlice";
+import { setLoggedIn, setUserID, setUsername, setRole } from "../../features/authSlice";
 
 const Login = () => {
   const initialState = {
@@ -21,9 +21,11 @@ const Login = () => {
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem("loggedIn");
     const storedUsername = localStorage.getItem("username");
-    if (storedLoggedIn && storedUsername) {
+    const storedRole = localStorage.getItem("role");
+    if (storedLoggedIn && storedUsername && storedRole) {
       dispatch(setLoggedIn(storedLoggedIn === "true"));
       dispatch(setUsername(storedUsername));
+      dispatch(setRole(storedRole));
     }
   }, [dispatch]);
 
@@ -49,11 +51,12 @@ const Login = () => {
     }
 
     try {
-      const { UserID } = await authenticate(formData, "login");
+      const { UserID, Role } = await authenticate(formData, "login");
       setFormData(initialState);
       dispatch(setLoggedIn(true));
       dispatch(setUsername(formData.Username));
       dispatch(setUserID(UserID));
+      dispatch(setRole(Role));
       toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
