@@ -11,7 +11,7 @@ import Search from "./components/search/Search";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 
-import Product from "./components/pages/Product";
+//import Product from "./components/pages/Product";
 import ProductCategory from "./components/pages/ProductListByCategory";
 import Category from "./components/pages/Category";
 import HomePage from "./components/pages/HomePage";
@@ -23,6 +23,11 @@ import Summary from "./components/admin/Summary";
 import Products from "./components/admin/Products";
 import CreateProduct from "./components/admin/CreateProduct";
 import ProductsList from "./components/admin/list/ProductsList";
+import Users from "./components/admin/Users";
+import Orders from "./components/admin/Orders";
+import Order from "./components/Details/Order";
+import UserProfile from "./components/Details/UserProfile";
+import Product from "./components/Details/Product";
 
 function App() {
   return (
@@ -36,6 +41,8 @@ function App() {
           <Route path="/not-found" component={NotFound} />
           <Route path="/" exact component={HomePage} />
           <Route path="/product/:ProductID" component={Product} />
+          <Route path="/order/:OrderID" component={Order} />
+          <Route path="/user/:UserID" component={UserProfile} />
           <Route path="/category" exact component={Category} />
           <Route path="/search/:searchItem" exact component={Search} />
           <Route path="/category/:CategoryName" component={ProductCategory} />
@@ -48,6 +55,8 @@ function App() {
                 path="/admin/products/create-product"
                 component={CreateProduct}
               />
+              <Route path="/admin/users" component={Users} />
+              <Route path="/admin/orders" component={Orders} />
               <Route path="/admin/products/list" component={ProductsList} />
             </Dashboard>
           </Route>

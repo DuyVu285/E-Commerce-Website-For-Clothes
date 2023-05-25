@@ -40,7 +40,7 @@ const Summary = () => {
     }
 
     fetchData();
-  });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,7 +57,7 @@ const Summary = () => {
     }
 
     fetchData();
-  });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -74,7 +74,7 @@ const Summary = () => {
     }
 
     fetchData();
-  });
+  }, []);
 
   const data = [
     {
