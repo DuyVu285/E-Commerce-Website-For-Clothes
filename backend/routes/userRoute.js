@@ -115,7 +115,7 @@ router.delete("/users/:userID/cart", (req, res) => {
 // Get User Stats
 router.get("/stats", (req, res) => {
   const previousMonth = moment()
-    .subtract(1, 'month')
+    .subtract(1, "month")
     .set("date", 7)
     .format("YYYY-MM-DD HH:mm:ss");
 
@@ -135,6 +135,5 @@ router.get("/stats", (req, res) => {
     }
   });
 });
-
 
 module.exports = router;

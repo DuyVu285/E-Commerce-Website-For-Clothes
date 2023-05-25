@@ -9,12 +9,7 @@ router.get("/orders", async (req, res) => {
   const query = req.query.new;
 
   try {
-    let sqlQuery = "SELECT * FROM orders";
-    if (query) {
-      sqlQuery += " ORDER BY OrderID DESC LIMIT 4";
-    } else {
-      sqlQuery += " ORDER BY OrderID DESC";
-    }
+    let sqlQuery = `SELECT * FROM orders ORDER BY OrderID DESC LIMIT 4`;
 
     connection.query(sqlQuery, (error, results) => {
       if (error) {
@@ -97,6 +92,33 @@ router.get("/weekstats", (req, res) => {
       res.status(200).send(results);
     }
   });
+});
+
+// Get All Time Data
+router.get("/topstats", async (req, res) => {
+  try {
+    const query = `
+      SELECT o.Total, o.OrderID, o.Shipping, SUM(op.Quantity) AS TotalQuantity
+      FROM orders o
+      INNER JOIN order_products op ON o.OrderID = op.OrderID
+      INNER JOIN product p ON op.ProductID = p.ProductID
+      GROUP BY o.OrderID
+      ORDER BY o.Total DESC
+      LIMIT 1;
+    `;
+
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).send(error);
+      } else {
+        res.status(200).send(results);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
 });
 
 module.exports = router;

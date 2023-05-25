@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-
 const Transactions = () => {
   const [orders, setOrders] = useState([]);
   const [isloading, setIsLoading] = useState(false);
@@ -20,7 +19,10 @@ const Transactions = () => {
         setIsLoading(false);
       }
     }
+
+    fetchData();
   }, []);
+
   return (
     <StyledTransactions>
       {isloading ? (
@@ -28,6 +30,17 @@ const Transactions = () => {
       ) : (
         <>
           <h3>Latest Transactions</h3>
+          {orders?.map((order, index) => {
+            const shipping = JSON.parse(order.Shipping);
+
+            return (
+              <Transaction key={index}>
+                <p>{shipping.name}</p>
+                <p>{order.Total.toLocaleString()}</p>
+                <p>{moment(order.Created_At).fromNow()}</p>
+              </Transaction>
+            );
+          })}
         </>
       )}
     </StyledTransactions>

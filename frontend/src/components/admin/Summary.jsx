@@ -4,6 +4,8 @@ import Widget from "./summary-components/Widget";
 import Chart from "./summary-components/Chart";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Transactions from "./summary-components/Transactions";
+import AllTimeData from "./summary-components/AllTimeData";
 
 const Summary = () => {
   const [users, setUsers] = useState([]);
@@ -119,7 +121,10 @@ const Summary = () => {
         </Overview>
         <Chart />
       </MainStats>
-      <SideStats></SideStats>
+      <SideStats>
+        <Transactions />
+        <AllTimeData />
+      </SideStats>
     </StyledSummary>
   );
 };
