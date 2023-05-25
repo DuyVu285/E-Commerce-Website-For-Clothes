@@ -111,7 +111,7 @@ const createOrder = async (customer, data) => {
 
   try {
     // Insert order into the 'order' table
-    const orderQuery = "INSERT INTO `order` SET ?";
+    const orderQuery = "INSERT INTO orders SET ?";
     const orderResult = await queryPromise(orderQuery, orderData);
 
     const insertId = orderResult.insertId;

@@ -1,9 +1,107 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { PrimaryButton } from "./CommonStyled";
+import { useCreateProductMutation } from "../../features/productsApi";
+
 const CreateProduct = () => {
-  return <StyledCreateProduct>CreateProducts</StyledCreateProduct>;
+  const { createStatus } = useSelector((state) => state.products);
+
+  const [ProductImg, setProductImg] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [desc, setDesc] = useState("");
+  console.log(ProductImg);
+
+  const handleProductImageUpLoad = (e) => {
+    const file = e.target.files[0];
+
+    TransformFile(file);
+  };
+
+  const [createProductMutation] = useCreateProductMutation(); // Create the mutation function
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Call the createProduct mutation and pass the required data
+    const { data } = await createProductMutation({
+      name,
+      price,
+      description: desc,
+      image: ProductImg,
+    });
+
+    // Handle the response or any errors if needed
+    if (data) {
+      // Product created successfully
+      console.log("Product created successfully");
+      // Perform any necessary actions, such as updating the product list
+    } else {
+      // Error creating the product
+      console.error("Error creating the product");
+    }
+  };
+
+  const TransformFile = (file) => {
+    const reader = new FileReader();
+
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setProductImg(reader.result);
+      };
+    } else {
+      setProductImg("");
+    }
+  };
+  return (
+    <StyledCreateProduct>
+      <StyledForm onSubmit={handleSubmit}>
+        <h3>Create a Product</h3>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleProductImageUpLoad}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Price"
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Short Description"
+          onChange={(e) => setDesc(e.target.value)}
+          required
+        />
+        <PrimaryButton type="submit">
+          {createStatus === "pending" ? "Submitting" : "Submit"}
+        </PrimaryButton>
+      </StyledForm>
+      <ImagePreview>
+        {ProductImg ? (
+          <>
+            <img src={ProductImg} alt="product image!" />
+          </>
+        ) : (
+          <p>Image Preview will appear here!</p>
+        )}
+      </ImagePreview>
+    </StyledCreateProduct>
+  );
 };
 
 export default CreateProduct;
+
 
 const StyledForm = styled.form`
   display: flex;
@@ -32,7 +130,6 @@ const StyledForm = styled.form`
 
 const StyledCreateProduct = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 const ImagePreview = styled.div`

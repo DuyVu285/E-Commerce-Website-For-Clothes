@@ -9,6 +9,7 @@ const categoryRouter = require("./routes/categoryRoute");
 const categoryListRouter = require("./routes/categoryListRoute");
 const searchRouter = require("./routes/searchRoute");
 const stripeRouter = require("./routes/stripeRoute");
+const orderRouter = require("./routes/orderRoute");
 
 const app = express();
 
@@ -19,7 +20,8 @@ app.use(
       req.rawBody = buf.toString();
     },
   })
-);app.use(cors());
+);
+app.use(cors());
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -49,6 +51,7 @@ app.use(registerRouter);
 app.use(loginRouter);
 app.use(searchRouter);
 app.use(stripeRouter);
+app.use(orderRouter);
 
 const port = process.env.PORT || 5000;
 

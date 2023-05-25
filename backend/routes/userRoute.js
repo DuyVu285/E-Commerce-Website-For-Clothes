@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
+const moment = require("moment");
 
 // Retrieve all users
 router.get("/users", (req, res) => {
@@ -110,5 +111,30 @@ router.delete("/users/:userID/cart", (req, res) => {
     res.sendStatus(200);
   });
 });
+
+// Get User Stats
+router.get("/stats", (req, res) => {
+  const previousMonth = moment()
+    .subtract(1, 'month')
+    .set("date", 7)
+    .format("YYYY-MM-DD HH:mm:ss");
+
+  const query = `
+    SELECT MONTH(created_at) AS month, COUNT(*) AS total
+    FROM user
+    WHERE created_at >= '${previousMonth}'
+    GROUP BY MONTH(created_at)
+  `;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send(error);
+    } else {
+      res.status(200).send(results);
+    }
+  });
+});
+
 
 module.exports = router;

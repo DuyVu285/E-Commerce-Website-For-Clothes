@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useSelector} from "react-redux";
 
 const Dashboard = ({ children }) => {
+  const role = useSelector((state) => state.auth.role);
+
+  if(role !== "Admin") return <h1 className="not-found">Access Denied!</h1>
+
   return (
     <div>
       <StyledDashboard>

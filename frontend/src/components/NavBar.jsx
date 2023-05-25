@@ -41,7 +41,7 @@ const NavBar = () => {
     <nav className="nav-bar">
       <RightLinks>
         <Link to="/">
-          <h2>OnlineShop</h2>
+          <h2>UmiShop</h2>
         </Link>
         <Link to="/category">
           <h3>Category</h3>

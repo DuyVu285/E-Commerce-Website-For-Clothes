@@ -41,7 +41,7 @@ router.post('/products', async (req, res) => {
   if (image) {
     try {
       const uploadRes = await cloudinary.uploader.upload(image, {
-        upload_preset: 'Online-Shop'
+        upload_preset: 'OnlineShop'
       });
 
       const imageUrl = uploadRes.secure_url;

@@ -19,6 +19,13 @@ export const productsApi = createApi({
     getSearch: builder.query({
       query: (searchItem) => `search/${encodeURIComponent(searchItem)}`,
     }),
+    createProduct: builder.mutation({
+      query: (productData) => ({
+        url: "products",
+        method: "POST",
+        body: productData,
+      }),
+    }),
   }),
 });
 
@@ -28,4 +35,5 @@ export const {
   useGetProductsByCategoryQuery,
   useGetCategoryQuery,
   useGetSearchQuery,
+  useCreateProductMutation, // Add the created mutation hook to the export list
 } = productsApi;
