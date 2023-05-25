@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Search from "./components/search/Search";
+import Footer from "./components/Footer";
 
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -62,6 +63,7 @@ function App() {
           </Route>
           <Route path="*" component={NotFound} />
         </Switch>
+        <Footer />
       </BrowserRouter>
       <ToastContainer />
     </div>

@@ -2,7 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { PrimaryButton } from "./CommonStyled";
-import { useCreateProductMutation } from "../../features/productsApi";
+import {
+  useCreateProductMutation,
+  useGetAllProductsQuery,
+} from "../../features/productsApi";
 
 const CreateProduct = () => {
   const { createStatus } = useSelector((state) => state.products);
@@ -20,7 +23,7 @@ const CreateProduct = () => {
   };
 
   const [createProductMutation] = useCreateProductMutation(); // Create the mutation function
-
+  const { refetch } = useGetAllProductsQuery();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,6 +39,7 @@ const CreateProduct = () => {
     if (data) {
       // Product created successfully
       console.log("Product created successfully");
+      refetch(); // Fetch the updated product list after successful submission
       // Perform any necessary actions, such as updating the product list
     } else {
       // Error creating the product

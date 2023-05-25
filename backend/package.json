@@ -11,7 +11,7 @@
   "dependencies": {
     "@admin-bro/express": "^3.1.0",
     "admin-bro": "^4.0.1",
-    "admin-bro-sequelizejs": "^0.5.1",
+    "admin-bro-sequelizejs": "^0.1.9",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.37.0",
     "cors": "^2.8.5",

@@ -3,10 +3,17 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetAllProductsQuery } from "../../../features/productsApi";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDeleteProductMutation } from "../../../features/productsApi";
+import EditProduct from "../EditProduct";
 
 export default function ProductsList() {
   const history = useHistory();
-  const { data } = useGetAllProductsQuery();
+  const { data, refetch } = useGetAllProductsQuery();
+  const [deleteProduct] = useDeleteProductMutation();
+  const handleDelete = async (productId) => {
+    await deleteProduct(productId).unwrap();
+    refetch();
+  };
   const rows =
     data?.map((item) => ({
       id: item.ProductID,
@@ -49,7 +56,8 @@ export default function ProductsList() {
       renderCell: (params) => {
         return (
           <Actions>
-            <Delete>Delete</Delete>
+            <Delete onClick={() => handleDelete(params.row.id)}>Delete</Delete>
+            <EditProduct prodID={params.row.id} />
             <View onClick={() => history.push(`/product/${params.row.id}`)}>
               View
             </View>
@@ -69,7 +77,7 @@ export default function ProductsList() {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        disableRowSelectionOnClick
       />
     </div>
   );
