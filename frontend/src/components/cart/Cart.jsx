@@ -39,7 +39,6 @@ const Cart = () => {
         toast.success("Cart updated successfully", { position: "bottom-left" });
       } catch (error) {
         console.error(error);
-        toast.error("Failed to update cart", { position: "bottom-left" });
       }
     },
     [userID]
@@ -159,7 +158,7 @@ const Cart = () => {
               </div>
               <p>Tax and shipping calculated at checkout</p>
               {isLoggedIn ? (
-                <PayButton cartItems={cartItems} userID = {userID}/>
+                <PayButton cartItems={cartItems} userID={userID} />
               ) : (
                 <button
                   style={{ backgroundColor: "yellow", color: "black" }}

@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const AllTimeData = () => {
-  const { items } = useSelector((state) => state.products);
   const [orders, setOrders] = useState([]);
   const [isloading, setIsLoading] = useState(false);
 

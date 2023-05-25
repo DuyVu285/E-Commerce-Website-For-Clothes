@@ -90,7 +90,7 @@ const CreateProduct = () => {
       <ImagePreview>
         {ProductImg ? (
           <>
-            <img src={ProductImg} alt="product image!" />
+            <img src={ProductImg} alt="product" />
           </>
         ) : (
           <p>Image Preview will appear here!</p>
@@ -101,7 +101,6 @@ const CreateProduct = () => {
 };
 
 export default CreateProduct;
-
 
 const StyledForm = styled.form`
   display: flex;
