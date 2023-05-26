@@ -1,10 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import App from "./App";
 
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import thunk from "redux-thunk";
 
 import productsReducer, { productsFetch } from "./features/productsSlice";
 import { productsApi } from "./features/productsApi";
@@ -19,18 +20,18 @@ const store = configureStore({
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(productsApi.middleware);
+    return getDefaultMiddleware().concat(productsApi.middleware, thunk);
   },
 });
 
 store.dispatch(productsFetch());
 store.dispatch(getTotals());
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App /> 
+      <App />
     </Provider>
-  </Router>
+  </Router>,
+  document.getElementById("root")
 );

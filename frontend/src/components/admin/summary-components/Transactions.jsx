@@ -10,7 +10,7 @@ const Transactions = () => {
     async function fetchData() {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/orders");
+        const res = await axios.get("http://localhost:5000/orders/recent");
 
         setOrders(res.data);
       } catch (error) {
