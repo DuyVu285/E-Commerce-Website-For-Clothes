@@ -97,6 +97,8 @@ const Footer = () => {
 const StyledFooter = styled.footer`
   background-color: #f2f2f2;
   padding: 40px 0;
+  margin-top: auto;
+  margin-bottom: 20px;
 `;
 
 const FooterContainer = styled.div`

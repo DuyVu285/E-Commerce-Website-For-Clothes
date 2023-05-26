@@ -52,6 +52,7 @@ const StyledDashboard = styled.div`
 const SideNav = styled.div`
   border-right: 1px solid gray;
   height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
   position: fixed;
   overflow-y: auto;
   width: 200px;
@@ -99,6 +100,7 @@ const Content = styled.div`
   margin-left: 200px;
   padding: 2rem 3rem;
   width: 100%;
+  overflow: auto;
 `;
 
 export default Dashboard;

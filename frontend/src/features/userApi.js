@@ -31,3 +31,16 @@ export const getUserApi = async (userID) => {
     throw error;
   }
 };
+
+export const updateUserApi = async (userID, updatedUserData) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:5000/users/edit/${userID}`,
+      updatedUserData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

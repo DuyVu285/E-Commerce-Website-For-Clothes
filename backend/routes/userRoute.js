@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
+const bcrypt = require("bcrypt");
 const moment = require("moment");
 
 // Retrieve all users
@@ -32,6 +33,34 @@ router.get("/users/:userID", (req, res) => {
 
     res.json(results[0]);
   });
+});
+
+// Update a user by ID
+router.put("/users/edit/:userID", (req, res) => {
+  const userID = req.params.userID;
+  const { Username, Email, Password } = req.body;
+
+  // Hash the password using bcrypt
+  const hashedPassword = bcrypt.hashSync(Password, 10);
+
+  const query =
+    "UPDATE User SET Username = ?, Email = ?, Password = ? WHERE UserID = ?";
+  connection.query(
+    query,
+    [Username, Email, hashedPassword, userID],
+    (error, result) => {
+      if (error) {
+        console.error("Error executing the query:", error);
+        return res.status(500).send("Error executing the query");
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send("User not found");
+      }
+
+      res.sendStatus(200);
+    }
+  );
 });
 
 // Delete a user by ID

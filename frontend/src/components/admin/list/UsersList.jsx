@@ -4,7 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { userApi } from "../../../features/userApi";
 import { useDispatch } from "react-redux";
-import EditProduct from "../EditProduct";
 import { useEffect, useState } from "react";
 import { deleteUserApi } from "../../../features/userApi";
 
@@ -65,14 +64,13 @@ export default function UsersList() {
       field: "actions",
       headerName: "Actions",
       sortable: false,
-      width: 170,
+      width: 120,
       renderCell: (params) => {
         return (
           <Actions>
             <Delete onClick={() => handleDeleteUser(params.row.id)}>
               Delete
             </Delete>
-            <EditProduct prodID={params.row.id} />
             <View onClick={() => history.push(`/user/${params.row.id}`)}>
               View
             </View>
