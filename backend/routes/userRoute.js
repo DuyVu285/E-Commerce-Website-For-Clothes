@@ -34,6 +34,24 @@ router.get("/users/:userID", (req, res) => {
   });
 });
 
+// Delete a user by ID
+router.delete("/users/:userID", (req, res) => {
+  const userID = req.params.userID;
+  const query = "DELETE FROM User WHERE UserID = ?";
+  connection.query(query, [userID], (error, result) => {
+    if (error) {
+      console.error("Error executing the query:", error);
+      return res.status(500).send("Error executing the query");
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("User not found");
+    }
+
+    res.sendStatus(200);
+  });
+});
+
 // Retrieve a user's cart by user ID
 router.get("/users/:userID/cart", (req, res) => {
   const userID = req.params.userID;

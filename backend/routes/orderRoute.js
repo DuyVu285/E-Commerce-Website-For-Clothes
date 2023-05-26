@@ -115,24 +115,16 @@ router.put("/orders/:OrderID", (req, res) => {
 
 // Get Recent Orders
 
-router.get("/orders/recent", async (req, res) => {
-  const query = req.query.new;
-
-  try {
-    let sqlQuery = `SELECT * FROM orders ORDER BY OrderID DESC LIMIT 4`;
-
-    connection.query(sqlQuery, (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).send(error);
-      } else {
-        res.status(200).send(results);
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
-  }
+router.get("/orders/transactions/recent", async (req, res) => {
+  const query = `SELECT * FROM orders ORDER BY OrderID DESC LIMIT 4`;
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send(error);
+    } else {
+      res.status(200).send(results);
+    }
+  });
 });
 
 // Get Order Stats
