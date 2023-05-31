@@ -15,6 +15,9 @@ import Login from "./components/auth/Login";
 import ProductCategory from "./components/pages/ProductListByCategory";
 import Category from "./components/pages/Category";
 import HomePage from "./components/pages/HomePage";
+import FAQ from "./components/pages/FAQ";
+import ReturnFAQ from "./components/pages/ReturnFAQ";
+import PrivacyFAQ from "./components/pages/PrivacyFAQ";
 
 import Cart from "./components/cart/Cart";
 import CheckoutSuccess from "./components/checkout/CheckoutSuccess";
@@ -38,6 +41,9 @@ function App() {
           <Route path="/cart" exact component={Cart} />
           <Route path="/register" exact component={Register} />
           <Route path="/login" exact component={Login} />
+          <Route path="/FAQ" exact component={FAQ} />
+          <Route path="/ReturnFAQ" exact component={ReturnFAQ} />
+          <Route path="/PrivacyFAQ" exact component={PrivacyFAQ} />
           <Route path="/not-found" component={NotFound} />
           <Route path="/" exact component={HomePage} />
           <Route path="/product/:ProductID" component={Product} />
