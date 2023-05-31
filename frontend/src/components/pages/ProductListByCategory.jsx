@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useGetProductsByCategoryQuery } from "../../features/productsApi";
 import { addToCart } from "../../features/cartSlice";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import newImage from "../images/new.webp";
 
 const ProductListByCategory = () => {
   const { CategoryName } = useParams();
@@ -30,30 +32,43 @@ const ProductListByCategory = () => {
     return null;
   }
 
+  const renderProductCards = () => {
+    return data.map((product) => (
+      <Col md={6} lg={3} key={product.ProductID}>
+        <Card className="product">
+          <Card.Body>
+            <Card.Title>{product.Name}</Card.Title>
+            <Link to={`/product/${product.ProductID}`}>
+              <Card.Img variant="top" src={product.Image} alt={product.Name} />
+            </Link>
+            <Card.Text
+              style={{
+                textAlign: "right",
+                fontSize: "24px",
+              }}
+            >
+              <strong>{product.Price} VND</strong>
+            </Card.Text>
+            <Button
+              variant="primary"
+              onClick={() => handleAddToCart(product)}
+              className="mt-3"
+            >
+              Add To Cart
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    ));
+  };
+
   return (
     <div className="home-container">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>An error occured</p>
-      ) : (
-        <>
-          <h2>{CategoryName}</h2>
-          <div className="products">
-            {data.map((product) => (
-              <div key={product.ProductID} className="product">
-                <h3>{product.Name}</h3>
-                <Link to={`/product/${product.ProductID}`}>
-                  <img src={product.Image} alt={product.Name} />
-                </Link>
-                <button onClick={() => handleAddToCart(product)}>
-                  Add To Cart
-                </button>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      <div className="category-section">
+        <img src={newImage} alt="Category" style={{ width: "100%" }} />
+        <span className="category-heading">New Arrivals</span>
+      </div>
+      <Row>{renderProductCards()}</Row>
     </div>
   );
 };

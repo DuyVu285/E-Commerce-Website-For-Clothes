@@ -22,7 +22,7 @@ router.get("/category", (req, res) => {
 router.get("/category/:categoryName", (req, res) => {
   const categoryName = req.params.categoryName;
   const query = `
-    SELECT p.ProductID, p.Name, p.Description, p.Image
+    SELECT p.ProductID, p.Name, p.Description, p.Image, p.Price
     FROM product p
     INNER JOIN category_contains cc ON p.ProductID = cc.ProductID
     INNER JOIN category c ON c.CategoryID = cc.CategoryID
