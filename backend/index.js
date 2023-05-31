@@ -6,9 +6,8 @@ const loginRouter = require("./auth/login");
 const productRouter = require("./routes/productRoute");
 const userRouter = require("./routes/userRoute");
 const categoryRouter = require("./routes/categoryRoute");
-const categoryListRouter = require("./routes/categoryListRoute");
 const searchRouter = require("./routes/searchRoute");
-const stripeRouter = require("./routes/stripeRoute");
+const stripeRouter = require("./utils/stripeRoute");
 const orderRouter = require("./routes/orderRoute");
 
 const app = express();
@@ -44,7 +43,6 @@ app.get("/", (req, res) => {
 
 app.use(productRouter);
 app.use(categoryRouter);
-app.use(categoryListRouter);
 app.use(userRouter);
 app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);

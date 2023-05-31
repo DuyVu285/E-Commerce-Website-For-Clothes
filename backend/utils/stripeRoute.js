@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../connection");
-const util = require('util');
+const util = require("util");
 const queryPromise = util.promisify(connection.query).bind(connection);
-const stripe = require("stripe")(
-  "sk_test_51NAV7gIu8TWD2EDaCDoCplcoPO3rOug1aVumex3l7oqaHVkYNBHD85Stq9Z1OfuzO5w1x4hu2YbYTt0rsl0DhKsU00z6lwn8S4"
-);
+const dotenv = require("dotenv");
+dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const bodyParser = require("body-parser");
 router.use(bodyParser.raw({ type: "application/json" }));
 
@@ -115,29 +115,25 @@ const createOrder = async (customer, data) => {
     const orderResult = await queryPromise(orderQuery, orderData);
 
     const insertId = orderResult.insertId;
-    console.log('Inserted ID:', insertId);
+    console.log("Inserted ID:", insertId);
 
     // Use the insertId to insert products into the 'order_products' table
     const productQuery =
       "INSERT INTO `order_products`(OrderID, ProductID, Quantity) VALUES ?";
-      const products = cartItems.map((item) => {
-        return [insertId, item.ProductID, item.cartQuantity];
-      });
-  
+    const products = cartItems.map((item) => {
+      return [insertId, item.ProductID, item.cartQuantity];
+    });
 
     const productResult = await queryPromise(productQuery, [products]);
-    console.log('Products inserted:', productResult.affectedRows);
+    console.log("Products inserted:", productResult.affectedRows);
   } catch (error) {
     console.error(error);
   }
 };
 
 // Stripe webhook
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
 let endpointSecret;
-endpointSecret =
-  "whsec_ce3a0bc72011c1f6e5c63930aae5948803482dc69642476ba15011b735b7d31b";
-
+endpointSecret = process.env.STRIPE_WEB_HOOK;
 router.post("/webhook", (request, response) => {
   const sig = request.headers["stripe-signature"];
   const payload = request.rawBody;
@@ -164,7 +160,6 @@ router.post("/webhook", (request, response) => {
     eventType = req.body.type;
   }
 
-  // Handle the event
   if (eventType === "checkout.session.completed") {
     stripe.customers
       .retrieve(data.customer)
@@ -174,7 +169,6 @@ router.post("/webhook", (request, response) => {
       .catch((err) => console.log(err.message));
   }
 
-  // Return a 200 response to acknowledge receipt of the event
   response.send().end();
 });
 

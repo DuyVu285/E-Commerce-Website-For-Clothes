@@ -4,7 +4,6 @@ const connection = require("../connection");
 const moment = require("moment");
 
 // Get Orders
-
 router.get("/orders", async (req, res) => {
   const query = req.query.new;
 
@@ -40,6 +39,26 @@ router.get("/orders/:OrderID", (req, res) => {
     }
 
     res.json(results[0]);
+  });
+});
+
+// Update a specific order by ID
+router.put("/orders/:OrderID", (req, res) => {
+  const OrderID = req.params.OrderID;
+  const updatedOrder = req.body;
+
+  const query = "UPDATE orders SET ? WHERE OrderID = ?";
+  connection.query(query, [updatedOrder, OrderID], (error, results) => {
+    if (error) {
+      console.error("Error executing the query:", error);
+      return res.status(500).send("Error executing the query");
+    }
+
+    if (results.affectedRows === 0) {
+      return res.status(404).send("Order not found");
+    }
+
+    res.status(200).send("Order updated successfully");
   });
 });
 
@@ -93,28 +112,7 @@ router.get("/orders/details/:OrderID", (req, res) => {
   });
 });
 
-// Update a specific order by ID
-router.put("/orders/:OrderID", (req, res) => {
-  const OrderID = req.params.OrderID;
-  const updatedOrder = req.body;
-
-  const query = "UPDATE orders SET ? WHERE OrderID = ?";
-  connection.query(query, [updatedOrder, OrderID], (error, results) => {
-    if (error) {
-      console.error("Error executing the query:", error);
-      return res.status(500).send("Error executing the query");
-    }
-
-    if (results.affectedRows === 0) {
-      return res.status(404).send("Order not found");
-    }
-
-    res.status(200).send("Order updated successfully");
-  });
-});
-
 // Get Recent Orders
-
 router.get("/orders/transactions/recent", async (req, res) => {
   const query = `SELECT * FROM orders ORDER BY OrderID DESC LIMIT 4`;
   connection.query(query, (error, results) => {
