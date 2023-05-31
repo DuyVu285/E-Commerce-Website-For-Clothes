@@ -12,7 +12,6 @@ import Footer from "./components/Footer";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 
-//import Product from "./components/pages/Product";
 import ProductCategory from "./components/pages/ProductListByCategory";
 import Category from "./components/pages/Category";
 import HomePage from "./components/pages/HomePage";
