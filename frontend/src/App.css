@@ -65,63 +65,6 @@
   font-size: 20px;
 }
 
-/* NavBar */
-
-.nav-bar {
-  height: 70px;
-  background-color: black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4rem;
-}
-
-.nav-bar a {
-  text-decoration: none;
-  color: white;
-}
-
-.nav-bar h2 {
-  font-size: 40px;
-}
-
-.nav-bag {
-  display: flex;
-  align-items: center;
-}
-
-.bag-quantity {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 25px;
-  width: 25px;
-  background: yellow;
-  border: 50%;
-  font-size: 14px;
-  font-weight: 700;
-  color: black;
-  margin-left: 5px;
-}
-
-/* Not Found */
-.not-found {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: rgb(68, 68, 68);
-  min-height: 80vh;
-}
-
-.not-found h2 {
-  font-size: 55px;
-}
-
-.not-found p {
-  font-size: 20px;
-}
-
 /* Home */
 .home-container {
   padding: 2rem 4rem;

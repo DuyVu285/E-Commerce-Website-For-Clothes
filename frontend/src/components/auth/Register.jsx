@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import authenticate from "../../features/authenticate";
 import { StyledForm } from "./StyledForm";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const initialState = {
@@ -76,6 +77,7 @@ const Register = () => {
       {registrationStatus && (
         <p className="error-message">{registrationStatus}</p>
       )}
+      <Link to="/login">Already have an account? Login!</Link>
     </StyledForm>
   );
 };

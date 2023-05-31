@@ -44,17 +44,16 @@ const NavBar = () => {
           <h2>UmiShop</h2>
         </Link>
         <Link to="/category">
-          <h3>Category</h3>
+          <h4>Category</h4>
         </Link>
         <Link to="/category/NewArrivals">
-          <h3>New Arrivals</h3>
+          <h4>New Arrivals</h4>
         </Link>
       </RightLinks>
       <LeftLinks>
         <SearchContainer>
           <form onSubmit={handleSearch}>
             <SearchInput type="text" name="search" placeholder="Search" />
-            <SearchButton type="submit">Search</SearchButton>
           </form>
         </SearchContainer>
         <Link to="/cart">
@@ -92,8 +91,22 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Sign Up</Link>
+                <Link to="/login">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    class="bi bi-person-circle"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                    />
+                  </svg>
+                </Link>
               </>
             )}
           </>
@@ -132,17 +145,18 @@ const RightLinks = styled.div`
 `;
 
 const SearchInput = styled.input`
-  padding: 0.5rem;
+  position: relative;
+  padding: 0.5rem 2rem 0.5rem 1rem;
   border: 1px solid gray;
   border-radius: 4px;
-`;
-
-const SearchButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #f5f5f5;
-  border: 1px solid gray;
-  border-radius: 4px;
-  cursor: pointer;
+  width: 220px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'><path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.2rem;
 `;
 
 const SearchContainer = styled.div`

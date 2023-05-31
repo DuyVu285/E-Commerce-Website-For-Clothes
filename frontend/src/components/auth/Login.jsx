@@ -3,9 +3,15 @@ import { StyledForm } from "./StyledForm";
 import { toast } from "react-toastify";
 import authenticate from "../../features/authenticate";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartItem } from "../../features/cartApi";
-import { setLoggedIn, setUserID, setUsername, setRole } from "../../features/authSlice";
+import {
+  setLoggedIn,
+  setUserID,
+  setUsername,
+  setRole,
+} from "../../features/authSlice";
 
 const Login = () => {
   const initialState = {
@@ -100,6 +106,7 @@ const Login = () => {
           />
         </div>
         <button type="submit">Login</button>
+        <Link to="/register">Don't have an account? Register!</Link>
       </StyledForm>
     </>
   );
