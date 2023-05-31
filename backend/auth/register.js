@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const connection = require('../connection');
+const connection = require("../connection");
 const router = express.Router();
 
 router.post("/register", (req, res) => {

@@ -26,7 +26,7 @@ const Register = () => {
     }
 
     try {
-      const response = await authenticate(formData,"register");
+      const response = await authenticate(formData, "register");
       setFormData(initialState);
 
       if (response.message === "User registered successfully") {
