@@ -22,12 +22,11 @@ const CreateProduct = () => {
     TransformFile(file);
   };
 
-  const [createProductMutation] = useCreateProductMutation(); // Create the mutation function
+  const [createProductMutation] = useCreateProductMutation();
   const { refetch } = useGetAllProductsQuery();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Call the createProduct mutation and pass the required data
     const { data } = await createProductMutation({
       name,
       price,
@@ -35,16 +34,16 @@ const CreateProduct = () => {
       image: ProductImg,
     });
 
-    // Handle the response or any errors if needed
+    console.log(data);
+
     if (data) {
-      // Product created successfully
       console.log("Product created successfully");
-      refetch(); // Fetch the updated product list after successful submission
-      // Perform any necessary actions, such as updating the product list
+      refetch();
     } else {
-      // Error creating the product
       console.error("Error creating the product");
     }
+
+    // create category product by api
   };
 
   const TransformFile = (file) => {
