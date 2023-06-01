@@ -31,6 +31,9 @@ import Orders from "./components/admin/Orders";
 import Order from "./components/Details/Order";
 import UserProfile from "./components/Details/UserProfile";
 import Product from "./components/Details/Product";
+import UserDashboard from "./components/user/Dashboard";
+import UserOrders from "./components/user/Orders";
+import UserProfileEdit from "./components/user/UserProfileEdit";
 
 function App() {
   return (
@@ -65,6 +68,12 @@ function App() {
               <Route path="/admin/orders" component={Orders} />
               <Route path="/admin/products/list" component={ProductsList} />
             </Dashboard>
+          </Route>
+          <Route path="/profile">
+            <UserDashboard>
+              <Route path="/profile/orders" component={UserOrders} />
+              <Route path="/profile/user" component={UserProfileEdit} />
+            </UserDashboard>
           </Route>
           <Route path="*" component={NotFound} />
         </Switch>

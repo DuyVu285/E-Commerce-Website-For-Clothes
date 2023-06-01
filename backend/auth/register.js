@@ -112,7 +112,6 @@ router.get("/verify/:token", async (req, res) => {
         return res.status(500).json({ message: "Failed to verify account" });
       }
 
-      // Send an HTML response with a delay of 2 seconds
       setTimeout(() => {
         const htmlResponse = `
           <html>

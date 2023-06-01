@@ -84,7 +84,7 @@ const NavBar = () => {
           <>
             {isLoggedIn ? (
               <>
-                <Link to="">{username}</Link>
+                <Link to="/profile/user">{username}</Link>
                 <Link to="#" onClick={handleLogout}>
                   Logout
                 </Link>
