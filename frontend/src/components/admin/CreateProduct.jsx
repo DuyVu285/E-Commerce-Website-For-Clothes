@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { PrimaryButton } from "./CommonStyled";
+import { toast } from "react-toastify";
 import {
   useCreateProductMutation,
   useGetAllProductsQuery,
@@ -35,11 +36,16 @@ const CreateProduct = () => {
       description: desc,
       image: ProductImg,
     });
-
-    console.log(data);
-
     if (data) {
       console.log("Product created successfully");
+      setName("");
+      setPrice("");
+      setDesc("");
+      setCategoryID("");
+      setProductImg("");
+      toast.success("Product created successfully", {
+        position: "bottom-left",
+      });
     } else {
       console.error("Error creating the product");
     }
@@ -53,7 +59,6 @@ const CreateProduct = () => {
 
     if (response) {
       console.log("Product and category created successfully");
-      refetch();
     } else {
       console.error("Error creating the product");
     }

@@ -66,7 +66,7 @@ const ProductListByCategory = () => {
     <div className="home-container">
       <div className="category-section">
         <img src={newImage} alt="Category" style={{ width: "100%" }} />
-        <span className="category-heading">New Arrivals</span>
+        <span className="category-heading">{}</span>
       </div>
       <Row>{renderProductCards()}</Row>
     </div>
