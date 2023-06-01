@@ -38,11 +38,6 @@ const CreateProduct = () => {
     });
     if (data) {
       console.log("Product created successfully");
-      setName("");
-      setPrice("");
-      setDesc("");
-      setCategoryID("");
-      setProductImg("");
       toast.success("Product created successfully", {
         position: "bottom-left",
       });
@@ -62,6 +57,8 @@ const CreateProduct = () => {
     } else {
       console.error("Error creating the product");
     }
+
+    e.target.reset();
 
     refetch();
   };

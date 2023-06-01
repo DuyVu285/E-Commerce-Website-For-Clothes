@@ -29,7 +29,7 @@ export default function EditProduct({ prodID }) {
       if (selectedProd) {
         setCurrentProd(selectedProd);
         setPreviewImg(selectedProd.Image);
-        setProductImg("");
+        setProductImg(selectedProd.Image);
         setName(selectedProd.Name);
         setPrice(selectedProd.Price);
         setDesc(selectedProd.Description);
@@ -42,7 +42,7 @@ export default function EditProduct({ prodID }) {
     if (file) {
       transformFile(file);
     } else {
-      setProductImg(null);
+      setProductImg(currentProd.Image);
       setPreviewImg(currentProd.Image);
     }
   };
