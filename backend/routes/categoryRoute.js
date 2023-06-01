@@ -44,7 +44,7 @@ router.post("/category", async (req, res) => {
 
   const query =
     "INSERT INTO Category_contains (CategoryID, ProductID) VALUES (?, ?)";
-  connection.query(query, [ProductID, CategoryID], (error, results) => {
+  connection.query(query, [CategoryID, ProductID], (error, results) => {
     if (error) {
       console.error("Error executing the query:", error);
       return res.status(500).send("Error executing the query");

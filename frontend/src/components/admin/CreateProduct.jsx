@@ -6,6 +6,7 @@ import {
   useCreateProductMutation,
   useGetAllProductsQuery,
 } from "../../features/productsApi";
+import { categoryApi } from "../../features/categoryApi";
 
 const CreateProduct = () => {
   const { createStatus } = useSelector((state) => state.products);
@@ -14,6 +15,7 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
+  const [CategoryID, setCategoryID] = useState("");
   console.log(ProductImg);
 
   const handleProductImageUpLoad = (e) => {
@@ -38,12 +40,25 @@ const CreateProduct = () => {
 
     if (data) {
       console.log("Product created successfully");
+    } else {
+      console.error("Error creating the product");
+    }
+
+    const ProductID = data.productId;
+
+    const { response } = await categoryApi({
+      ProductID: parseInt(ProductID),
+      CategoryID: parseInt(CategoryID),
+    });
+
+    if (response) {
+      console.log("Product and category created successfully");
       refetch();
     } else {
       console.error("Error creating the product");
     }
 
-    // create category product by api
+    refetch();
   };
 
   const TransformFile = (file) => {
@@ -80,6 +95,18 @@ const CreateProduct = () => {
           onChange={(e) => setPrice(e.target.value)}
           required
         />
+        <select
+          placeholder="Category"
+          onChange={(e) => setCategoryID(e.target.value)}
+          defaultValue=""
+        >
+          <option value="" disabled selected>
+            Select a category
+          </option>
+          <option value={1}>Men</option>
+          <option value={2}>Women</option>
+          <option value={3}>New</option>
+        </select>
         <input
           type="text"
           placeholder="Short Description"

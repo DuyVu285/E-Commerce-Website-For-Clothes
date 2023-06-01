@@ -140,22 +140,43 @@ router.put("/products/:productID", async (req, res) => {
   }
 });
 
-// Delete a specific product by ID
 router.delete("/products/:productID", (req, res) => {
   const productID = req.params.productID;
-  const query = "DELETE FROM Product WHERE ProductID = ?";
-  connection.query(query, [productID], (error, results) => {
-    if (error) {
-      console.error("Error executing the query:", error);
-      return res.status(500).send("Error executing the query");
-    }
 
-    if (results.affectedRows === 0) {
-      return res.status(404).send("Product not found");
-    }
+  const categoryContainsQuery =
+    "DELETE FROM category_contains WHERE ProductID = ?";
+  connection.query(
+    categoryContainsQuery,
+    [productID],
+    (error, categoryContainsResults) => {
+      if (error) {
+        console.error("Error executing the category_contains query:", error);
+        return res
+          .status(500)
+          .send("Error executing the category_contains query");
+      }
 
-    res.sendStatus(204);
-  });
+      if (categoryContainsResults.affectedRows === 0) {
+        return res
+          .status(404)
+          .send("Product not found in the category_contains table");
+      }
+
+      const productQuery = "DELETE FROM Product WHERE ProductID = ?";
+      connection.query(productQuery, [productID], (error, productResults) => {
+        if (error) {
+          console.error("Error executing the product query:", error);
+          return res.status(500).send("Error executing the product query");
+        }
+
+        if (productResults.affectedRows === 0) {
+          return res.status(404).send("Product not found");
+        }
+
+        res.sendStatus(204);
+      });
+    }
+  );
 });
 
 module.exports = router;

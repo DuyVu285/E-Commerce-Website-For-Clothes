@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const categoryApi = async (formData, endpoint) => {
+export const categoryApi = async (formData, endpoint) => {
   try {
     const response = await axios.post(
       `http://localhost:5000/category`,
@@ -12,5 +12,3 @@ const categoryApi = async (formData, endpoint) => {
     throw error;
   }
 };
-
-export default categoryApi;

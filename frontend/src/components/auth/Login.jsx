@@ -66,7 +66,7 @@ const Login = () => {
       toast.success("Login successful. Returning to Previous Page", {
         position: "bottom-left",
       });
-      history.goBack();
+      history.push("/");
 
       if (cartItems.length > 0) {
         await handleUpdateCart(UserID, cartItems);

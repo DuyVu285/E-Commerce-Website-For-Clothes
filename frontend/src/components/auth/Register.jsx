@@ -30,10 +30,15 @@ const Register = () => {
       const response = await authenticate(formData, "register");
       setFormData(initialState);
 
-      if (response.message === "User registered successfully") {
-        toast.success("User registered successfully", {
-          position: "bottom-left",
-        });
+      if (
+        response.message === "Registration successful. Verification email sent."
+      ) {
+        toast.success(
+          "Registration successful. Please check your email for the verification link.",
+          {
+            position: "bottom-left",
+          }
+        );
       } else if (response.message === "User already exists") {
         setRegistrationStatus("User already exists");
       }

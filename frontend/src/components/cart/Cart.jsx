@@ -36,7 +36,6 @@ const Cart = () => {
     async (cartItems) => {
       try {
         await addCartItem(userID, cartItems);
-        toast.success("Cart updated successfully", { position: "bottom-left" });
       } catch (error) {
         console.error(error);
       }

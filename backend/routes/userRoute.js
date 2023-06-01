@@ -66,18 +66,28 @@ router.put("/users/edit/:userID", (req, res) => {
 // Delete a user by ID
 router.delete("/users/:userID", (req, res) => {
   const userID = req.params.userID;
-  const query = "DELETE FROM User WHERE UserID = ?";
-  connection.query(query, [userID], (error, result) => {
+
+  // Delete items in 'Cart' table
+  const deleteCartItemsQuery = "DELETE FROM cart WHERE UserID = ?";
+  connection.query(deleteCartItemsQuery, [userID], (error, cartResult) => {
     if (error) {
       console.error("Error executing the query:", error);
       return res.status(500).send("Error executing the query");
     }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).send("User not found");
+    res.sendStatus(200);
+  });
+  // Delete user from 'User' table
+  const deleteUserQuery = "DELETE FROM User WHERE UserID = ?";
+  connection.query(deleteUserQuery, [userID], (error, userResult) => {
+    if (error) {
+      console.error("Error executing the query:", error);
+      return res.status(500).send("Error executing the query");
     }
 
-    res.sendStatus(200);
+    if (userResult.affectedRows === 0) {
+      return res.status(404).send("User not found");
+    }
   });
 });
 
@@ -138,24 +148,6 @@ router.put("/users/:userID/cart", (req, res) => {
       // 3. Cart updated successfully
       res.sendStatus(200);
     });
-  });
-});
-
-router.delete("/users/:userID/cart", (req, res) => {
-  const userID = req.params.userID;
-  const cartItems = req.body;
-
-  // Delete all existing cart items for the given userID
-  const deleteQuery = `DELETE FROM cart WHERE UserID = ?`;
-  connection.query(deleteQuery, [userID], (error, result) => {
-    if (error) {
-      console.error(error);
-      res.sendStatus(500);
-      return;
-    }
-
-    // 3. Cart updated successfully
-    res.sendStatus(200);
   });
 });
 
