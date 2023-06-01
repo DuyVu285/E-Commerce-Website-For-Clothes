@@ -38,4 +38,22 @@ router.get("/category/:categoryName", (req, res) => {
   });
 });
 
+// Create a new Product by Category
+router.post("/category", async (req, res) => {
+  const { ProductID, CategoryID } = req.body;
+
+  const query =
+    "INSERT INTO Category_contains (CategoryID, ProductID) VALUES (?, ?)";
+  connection.query(query, [ProductID, CategoryID], (error, results) => {
+    if (error) {
+      console.error("Error executing the query:", error);
+      return res.status(500).send("Error executing the query");
+    }
+
+    res.json({
+      message: "Product by Category created successfully",
+    });
+  });
+});
+
 module.exports = router;
