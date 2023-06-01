@@ -32,7 +32,7 @@ CREATE TABLE `cart` (
   KEY `cart_Product_idx` (`ProductID`),
   CONSTRAINT `cart_Product` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE CASCADE,
   CONSTRAINT `cart_User` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=389 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (54,1,1,2),(379,4,1,4),(380,4,2,1),(387,2,1,4),(388,2,2,2);
+INSERT INTO `cart` VALUES (54,1,1,2),(387,2,1,4),(388,2,2,2),(407,4,1,3),(408,4,2,2),(425,15,1,4),(426,15,2,2);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Men','Products for men','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1684253660/Men_Category_phlnxa.webp'),(2,'Women','Products for Women','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1684254590/Women-category_fm6h2n.jpg'),(3,'NewArrivals','New Products','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1684254590/Women-category_fm6h2n.jpg');
+INSERT INTO `category` VALUES (1,'Men','Products for men','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1684253660/Men_Category_phlnxa.webp'),(2,'Women','Products for Women','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1684254590/Women-category_fm6h2n.jpg'),(3,'NewArrivals','New Products','https://res.cloudinary.com/dwpgfdxl5/image/upload/v1685527369/newArrival_xdyicr.webp');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `order_products` (
   PRIMARY KEY (`OrderConID`),
   KEY `order_products_ibfk_1` (`OrderID`),
   CONSTRAINT `order_products_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `order_products` (
 
 LOCK TABLES `order_products` WRITE;
 /*!40000 ALTER TABLE `order_products` DISABLE KEYS */;
-INSERT INTO `order_products` VALUES (1,1,1,3),(2,1,2,1),(3,15,1,3),(4,15,2,2),(5,16,1,3),(6,16,2,2),(7,17,1,2),(8,17,2,1),(9,18,1,4),(10,18,2,1),(11,19,1,4),(12,19,2,2);
+INSERT INTO `order_products` VALUES (1,1,1,3),(2,1,2,1),(3,15,1,3),(4,15,2,2),(5,16,1,3),(6,16,2,2),(7,17,1,2),(8,17,2,1),(9,18,1,4),(10,18,2,1),(11,19,1,4),(12,19,2,2),(13,20,1,4),(14,20,2,2);
 /*!40000 ALTER TABLE `order_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +147,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`OrderID`),
   KEY `order_UserFK_idx` (`UserID`),
   CONSTRAINT `order_UserFK` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,2,1350000.00,1350000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','dispatched','paid','2023-04-24 04:16:00','2023-05-26 01:55:08'),(15,2,2550000.00,2550000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-24 07:06:25','2023-05-24 07:06:25'),(16,2,2550000.00,2550000.00,'{\"name\": \"Duy\", \"email\": \"admin@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-24 18:15:48','2023-05-24 18:15:48'),(17,4,1500000.00,1500000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-25 18:17:56','2023-05-25 18:17:56'),(18,4,2400000.00,2400000.00,'{\"name\": \"Duy\", \"email\": \"zxc@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-26 06:38:42','2023-05-26 06:38:42'),(19,2,3000000.00,3000000.00,'{\"name\": \"Duy\", \"email\": \"zxc@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-26 07:30:43','2023-05-26 07:30:43');
+INSERT INTO `orders` VALUES (1,2,1350000.00,1350000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','dispatched','paid','2023-04-24 04:16:00','2023-05-26 01:55:08'),(15,2,2550000.00,2550000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','dispatched','paid','2023-05-24 07:06:25','2023-06-01 07:39:06'),(16,2,2550000.00,2550000.00,'{\"name\": \"Duy\", \"email\": \"admin@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-24 18:15:48','2023-05-24 18:15:48'),(17,4,1500000.00,1500000.00,'{\"name\": \"Duy\", \"email\": \"duyvu285num1@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-25 18:17:56','2023-05-25 18:17:56'),(18,4,2400000.00,2400000.00,'{\"name\": \"Duy\", \"email\": \"zxc@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-26 06:38:42','2023-05-26 06:38:42'),(19,2,3000000.00,3000000.00,'{\"name\": \"Duy\", \"email\": \"zxc@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-26 07:30:43','2023-05-26 07:30:43'),(20,4,3000000.00,3000000.00,'{\"name\": \"Duy\", \"email\": \"admin@gmail.com\", \"phone\": \"+84913520526\", \"address\": {\"city\": \"HCM\", \"line1\": \"74/18\", \"line2\": null, \"state\": \"Thành phố Hồ Chí Minh\", \"country\": \"VN\", \"postal_code\": \"76000\"}, \"tax_ids\": [], \"tax_exempt\": \"none\"}','pending','paid','2023-05-31 08:42:23','2023-05-31 08:42:23');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +175,7 @@ CREATE TABLE `product` (
   `Image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ProductID`),
   UNIQUE KEY `ProductID_UNIQUE` (`ProductID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,8 +203,10 @@ CREATE TABLE `user` (
   `Role` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `verificationToken` varchar(255) DEFAULT NULL,
+  `isVerified` int DEFAULT NULL,
   UNIQUE KEY `idUser_UNIQUE` (`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,7 +215,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'asd','asd@gmail.com','$2b$10$XV3DDXIfxj1xeyFlGowf4epGvR.ZeRlM6IK1Kb7ES6Ra4hvV3uLZW','User','2023-05-25 10:26:43','2023-05-26 06:39:55'),(2,'qwe','qwe1@gmail.com','$2b$10$VXnQFPP2tFRBFKLiVPew8uHIGn0rOeqTBTDjmKgMyBumEvBeifzeS','User','2023-04-25 10:26:43','2023-05-26 04:26:37'),(4,'admin','admin@gmail.com','$2b$10$3nQOKU6Vy5rclA/xWchJzOFVv2oUdTGfpqRKAvqjPNraOJsZ/uYoW','Admin','2023-05-25 10:26:43','2023-05-25 10:26:43'),(7,'zxc','zxc@gmail.com','$2b$10$uL5wx6BeSomj4yiCB8siB.R6wSkH7RIELilkn35PL/EJG6T0WAEsC','User','2023-05-26 06:56:57','2023-05-26 06:56:57'),(8,'asdf','asdf@gmail.com','$2b$10$ghUyj0eragZNMZrIZuqlwOfV/maTUl4NgWFAbWj/VRjjNPivzlItq','User','2023-05-26 07:14:30','2023-05-26 07:14:30');
+INSERT INTO `user` VALUES (1,'asd','asd@gmail.com','$2b$10$XV3DDXIfxj1xeyFlGowf4epGvR.ZeRlM6IK1Kb7ES6Ra4hvV3uLZW','User','2023-05-25 10:26:43','2023-05-26 06:39:55',NULL,NULL),(2,'qwe','qwe1@gmail.com','$2b$10$VXnQFPP2tFRBFKLiVPew8uHIGn0rOeqTBTDjmKgMyBumEvBeifzeS','User','2023-04-25 10:26:43','2023-05-26 04:26:37',NULL,NULL),(4,'admin','admin@gmail.com','$2b$10$3nQOKU6Vy5rclA/xWchJzOFVv2oUdTGfpqRKAvqjPNraOJsZ/uYoW','Admin','2023-05-25 10:26:43','2023-05-25 10:26:43',NULL,NULL),(15,'Fumi','bo280599@gmail.com','$2b$10$cIYddSJ.jDAfAArUVryJPOZxVvbl05fACDoPgQ/nzd8GGUkcddmjC','User','2023-06-01 08:55:26','2023-06-01 08:55:40','2dded55245a4a9a417b76749294db3f82faa960288b4355fc2b7784a97600d6e',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -226,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-31 12:36:30
+-- Dump completed on 2023-06-01 16:32:17
