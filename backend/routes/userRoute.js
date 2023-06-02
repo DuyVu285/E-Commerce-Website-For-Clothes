@@ -64,32 +64,49 @@ router.put("/users/edit/:userID", (req, res) => {
 });
 
 // Delete a user by ID
-router.delete("/users/:userID", (req, res) => {
+router.delete("/users/:userID", async (req, res) => {
   const userID = req.params.userID;
 
-  // Delete items in 'Cart' table
-  const deleteCartItemsQuery = "DELETE FROM cart WHERE UserID = ?";
-  connection.query(deleteCartItemsQuery, [userID], (error, cartResult) => {
-    if (error) {
-      console.error("Error executing the query:", error);
-      return res.status(500).send("Error executing the query");
+  try {
+    // Delete items in 'order_products' table
+    await executeQuery(
+      "DELETE FROM order_products WHERE OrderID IN ( SELECT OrderID FROM orders WHERE UserID = ?)",
+      [userID]
+    );
+
+    // Delete items in 'orders' table
+    await executeQuery("DELETE FROM orders WHERE UserID = ?", [userID]);
+
+    // Delete items in 'Cart' table
+    await executeQuery("DELETE FROM cart WHERE UserID = ?", [userID]);
+
+    // Delete user from 'User' table
+    const deleteUserQuery = "DELETE FROM User WHERE UserID = ?";
+    const result = await executeQuery(deleteUserQuery, [userID]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send("User not found");
     }
 
     res.sendStatus(200);
-  });
-  // Delete user from 'User' table
-  const deleteUserQuery = "DELETE FROM User WHERE UserID = ?";
-  connection.query(deleteUserQuery, [userID], (error, userResult) => {
-    if (error) {
-      console.error("Error executing the query:", error);
-      return res.status(500).send("Error executing the query");
-    }
-
-    if (userResult.affectedRows === 0) {
-      return res.status(404).send("User not found");
-    }
-  });
+  } catch (error) {
+    console.error("Error executing the query:", error);
+    res.status(500).send("Error executing the query");
+  }
 });
+
+// Helper function to execute a SQL query with parameters
+function executeQuery(query, params) {
+  return new Promise((resolve, reject) => {
+    connection.query(query, params, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
 // Retrieve a user's cart by user ID
 router.get("/users/:userID/cart", (req, res) => {
