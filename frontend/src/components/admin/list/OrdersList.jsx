@@ -41,9 +41,9 @@ export default function OrdersList() {
     {
       field: "cName",
       headerName: "Name",
-      width: 120,
+      width: 200,
     },
-    { field: "amount", headerName: "Amount", width: 100 },
+    { field: "amount", headerName: "Amount", width: 150 },
     {
       field: "dStatus",
       headerName: "Status",

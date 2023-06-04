@@ -146,7 +146,7 @@ export default function EditProduct({ prodID }) {
           </StyledEditProduct>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Exit</Button>
         </DialogActions>
       </Dialog>
     </div>
