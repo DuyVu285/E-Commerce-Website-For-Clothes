@@ -63,7 +63,7 @@ const Login = () => {
       dispatch(setUsername(formData.Username));
       dispatch(setUserID(UserID));
       dispatch(setRole(Role));
-      toast.success("Login successful. Returning to Previous Page", {
+      toast.success("Login successful.", {
         position: "bottom-left",
       });
       history.push("/");
@@ -73,7 +73,7 @@ const Login = () => {
       }
 
       setTimeout(() => {
-        history.goBack();
+        history.push("/");
       }, 1000);
     } catch (error) {
       console.error(error);
