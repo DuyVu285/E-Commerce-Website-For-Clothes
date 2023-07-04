@@ -9,4 +9,4 @@ Web Application Development Course Project.
 Team Size: 3
 
 Document: 
-[E-Commerce-Website-For-Clothes](https://docs.google.com/document/d/e/2PACX-1vSPI7O7H2tBjKk-ZbXVlQ7hzjiW1JZlgziBh7SD98_zgbm4O0rMIThwcRHbFyCkungIsckZBaMFmBML/pub)
+[E-Commerce-Website-For-Clothes](https://docs.google.com/document/d/1UsgvO8owoz95duGKrRufgokrtULZE7Mvr3R0qahaZj0/edit?usp=sharing)
