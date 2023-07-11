@@ -58,7 +58,7 @@ router.post("/products", async (req, res) => {
 });
 
 // Retrieve all products
-router.get("/products", (req, res) => {
+router.get("/products", async (req, res) => {
   const query = "SELECT * FROM Product";
   connection.query(query, (error, results) => {
     if (error) {
@@ -140,7 +140,7 @@ router.put("/products/:productID", async (req, res) => {
   }
 });
 
-router.delete("/products/:productID", (req, res) => {
+router.delete("/products/:productID", async (req, res) => {
   const productID = req.params.productID;
 
   const categoryContainsQuery =

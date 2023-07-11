@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require("../connection");
 
 // Retrieve Product Query
-router.get("/search/:searchItem", (req, res) => {
+router.get("/search/:searchItem", async (req, res) => {
   const { searchItem } = req.params;
   const sql = `SELECT * FROM product WHERE Name LIKE '%${searchItem}%' OR Description LIKE '%${searchItem}%'`;
   connection.query(sql, (error, results) => {

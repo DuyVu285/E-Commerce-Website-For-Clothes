@@ -25,7 +25,7 @@ router.get("/orders", async (req, res) => {
 });
 
 // Retrieve a specific order by ID
-router.get("/orders/:OrderID", (req, res) => {
+router.get("/orders/:OrderID", async (req, res) => {
   const OrderID = req.params.OrderID;
   const query = "SELECT * FROM orders WHERE OrderID = ?";
   connection.query(query, [OrderID], (error, results) => {
@@ -43,7 +43,7 @@ router.get("/orders/:OrderID", (req, res) => {
 });
 
 // Update a specific order by ID
-router.put("/orders/:OrderID", (req, res) => {
+router.put("/orders/:OrderID", async (req, res) => {
   const OrderID = req.params.OrderID;
   const updatedOrder = req.body;
 
@@ -63,7 +63,7 @@ router.put("/orders/:OrderID", (req, res) => {
 });
 
 // Retrieve an order details by ID
-router.get("/orders/details/:OrderID", (req, res) => {
+router.get("/orders/details/:OrderID", async (req, res) => {
   const OrderID = req.params.OrderID;
 
   // Fetch order details
@@ -126,7 +126,7 @@ router.get("/orders/transactions/recent", async (req, res) => {
 });
 
 // Get Order Stats
-router.get("/orderstats", (req, res) => {
+router.get("/orderstats", async (req, res) => {
   const previousMonth = moment()
     .subtract(1, "month")
     .set("date", 7)
@@ -150,7 +150,7 @@ router.get("/orderstats", (req, res) => {
 });
 
 // Get Earning Stats
-router.get("/earningstats", (req, res) => {
+router.get("/earningstats", async (req, res) => {
   const previousMonth = moment()
     .subtract(1, "month")
     .set("date", 7)
@@ -174,7 +174,7 @@ router.get("/earningstats", (req, res) => {
 });
 
 // Get 1 Week Sales
-router.get("/weekstats", (req, res) => {
+router.get("/weekstats", async (req, res) => {
   const last7Days = moment().subtract(7, "days").format("YYYY-MM-DD HH:mm:ss");
 
   const query = `

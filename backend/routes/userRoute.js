@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 
 // Retrieve all users
-router.get("/users", (req, res) => {
+router.get("/users", async (req, res) => {
   const query = "SELECT * FROM User";
   connection.query(query, (error, results) => {
     if (error) {
@@ -18,7 +18,7 @@ router.get("/users", (req, res) => {
 });
 
 // Retrieve a user by ID
-router.get("/users/:userID", (req, res) => {
+router.get("/users/:userID", async (req, res) => {
   const UserID = req.params.userID;
   const query = "SELECT * FROM User WHERE UserID = ?";
   connection.query(query, [UserID], (error, results) => {
@@ -36,7 +36,7 @@ router.get("/users/:userID", (req, res) => {
 });
 
 // Update a user by ID
-router.put("/users/edit/:userID", (req, res) => {
+router.put("/users/edit/:userID", async (req, res) => {
   const userID = req.params.userID;
   const { Username, Email, Password } = req.body;
 
@@ -109,7 +109,7 @@ function executeQuery(query, params) {
 }
 
 // Retrieve a user's cart by user ID
-router.get("/users/:userID/cart", (req, res) => {
+router.get("/users/:userID/cart", async (req, res) => {
   const userID = req.params.userID;
   if (!userID || isNaN(userID)) {
     // userID parameter is missing, do nothing
@@ -132,7 +132,7 @@ router.get("/users/:userID/cart", (req, res) => {
 });
 
 // Update a user's cart by user ID
-router.put("/users/:userID/cart", (req, res) => {
+router.put("/users/:userID/cart", async (req, res) => {
   const userID = req.params.userID;
   const cartItems = req.body;
   if (!userID || isNaN(userID)) {
@@ -169,7 +169,7 @@ router.put("/users/:userID/cart", (req, res) => {
 });
 
 // Get User Stats
-router.get("/stats", (req, res) => {
+router.get("/stats", async (req, res) => {
   const previousMonth = moment()
     .subtract(1, "month")
     .set("date", 7)

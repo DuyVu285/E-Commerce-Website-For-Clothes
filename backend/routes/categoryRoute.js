@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require("../connection");
 
 // Retrieve category
-router.get("/category", (req, res) => {
+router.get("/category", async (req, res) => {
   const categoryName = req.params.categoryName;
   const query = `
     SELECT * FROM Category
@@ -19,7 +19,7 @@ router.get("/category", (req, res) => {
 });
 
 // Retrieve products by category name
-router.get("/category/:categoryName", (req, res) => {
+router.get("/category/:categoryName", async (req, res) => {
   const categoryName = req.params.categoryName;
   const query = `
     SELECT p.ProductID, p.Name, p.Description, p.Image, p.Price
